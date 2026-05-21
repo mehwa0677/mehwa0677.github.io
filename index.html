@@ -1,7 +1,91 @@
-나의 첫 웹사이트
-      
-      
-        안녕하세요! 웹사이트 제작 테스트 중입니다.
-      
-    
-    ```
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>캐주얼 한옥 카페</title>
+  <style>
+    body {
+      font-family: 'Malgun Gothic', sans-serif;
+      background-color: #faf8f5; /* 따뜻한 베이지 바탕 */
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #fff;
+      padding: 30px 20px;
+      text-align: center;
+      border-bottom: 2px solid #f2e3e5;
+    }
+    h1 {
+      color: #8c736d; /* 나무 느낌의 폰트 색상 */
+      margin-bottom: 5px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+    .hero {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .hero img {
+      width: 100%;
+      max-width: 700px;
+      border-radius: 15px; /* 사진 모서리를 둥글게 */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .menu-section {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+    .menu-item {
+      background: #fff;
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      width: 45%;
+    }
+    .menu-item img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    .highlight {
+      color: #d88c9a; /* 벚꽃 라떼 느낌의 포인트 컬러 */
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>☕ 고즈넉한 여유, 캐주얼 한옥 카페</h1>
+    <p>일상의 복잡함을 벗어나 툇마루에서 쉬어가세요</p>
+  </header>
+
+  <div class="container">
+    <div class="hero">
+      <img src="image.jpg" alt="카페 전경">
+      <h2>따뜻한 봄날의 휴식처</h2>
+      <p>정성스럽게 내린 커피와 쉼이 있는 공간입니다.</p>
+    </div>
+
+    <h3 style="text-align: center; color: #8c736d; margin-bottom: 30px;">🌸 시즌 시그니처 메뉴 🌸</h3>
+    <div class="menu-section">
+      <div class="menu-item">
+        <img src="image1.jpg" alt="시그니처 메뉴">
+        <h4 class="highlight">시즌 한정: 벚꽃 라떼</h4>
+        <p>달콤한 크림과 은은한 봄 내음이 어우러진 시그니처 음료</p>
+      </div>
+      <div class="menu-item">
+        <img src="image2.png" alt="수제 디저트">
+        <h4>수제 디저트</h4>
+        <p>매일 아침 매장에서 직접 굽는 신선한 구움과자</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
