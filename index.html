@@ -13,10 +13,10 @@
 
   <style>
     :root {
-      --bg-color: #fcf9f9; /* 은은한 벚꽃 바탕 */
-      --text-main: #4a3e3d; /* 차분한 고동색 텍스트 */
+      --bg-color: #fcf9f9;
+      --text-main: #4a3e3d;
       --text-sub: #8a7b7a;
-      --accent: #e8b4b8; /* 채도 낮은 핑크포인트 */
+      --accent: #e8b4b8;
     }
 
     body {
@@ -29,7 +29,7 @@
       line-height: 1.8;
     }
 
-    /* 슬라이딩 메뉴바 (투명도와 블러 효과 추가) */
+    /* 슬라이딩 메뉴바 */
     .menu-btn {
       position: fixed;
       top: 30px;
@@ -67,6 +67,14 @@
     .sidenav a:hover {
       color: var(--accent);
       padding-left: 50px;
+    }
+    
+    /* 인스타그램 특별 링크 디자인 (메뉴바용) */
+    .insta-link {
+      margin-top: 30px;
+      border-top: 1px solid #f2e3e5;
+      padding-top: 20px !important;
+      font-weight: bold;
     }
 
     /* 레이아웃 디자인 */
@@ -106,7 +114,6 @@
       animation: bounce 2s infinite;
     }
 
-    /* 이미지와 텍스트 교차 배열 (매거진 스타일) */
     .section-magazine {
       display: flex;
       align-items: center;
@@ -123,7 +130,7 @@
     }
     .img-wrap img {
       width: 100%;
-      border-radius: 4px; /* 각진 느낌으로 모던함 강조 */
+      border-radius: 4px;
       box-shadow: 10px 15px 40px rgba(0,0,0,0.06);
     }
     .text-wrap {
@@ -136,7 +143,6 @@
       margin-bottom: 20px;
       position: relative;
     }
-    /* 제목 아래 짧은 선 포인트 */
     .text-wrap h3::after {
       content: "";
       display: block;
@@ -146,7 +152,6 @@
       margin-top: 15px;
     }
 
-    /* VR 섹션 */
     .vr-section {
       margin: 150px 0;
       text-align: center;
@@ -164,7 +169,26 @@
       box-shadow: 0 15px 40px rgba(0,0,0,0.05);
     }
 
-    /* 애니메이션 */
+    /* 푸터 (맨 아래 꼬리말 구역) */
+    footer {
+      text-align: center;
+      padding: 80px 20px 60px;
+      margin-top: 100px;
+      border-top: 1px solid #f2e3e5;
+      color: var(--text-sub);
+    }
+    
+    /* 인스타그램 특별 링크 디자인 (본문용) */
+    .footer-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .footer-link:hover {
+      color: var(--text-main);
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -175,7 +199,6 @@
       60% { transform: translateY(-5px); }
     }
 
-    /* 모바일 반응형 처리 */
     @media (max-width: 768px) {
       .section-magazine, .section-magazine:nth-child(even) {
         flex-direction: column;
@@ -194,6 +217,7 @@
     <a href="#">공간 이야기</a>
     <a href="#">벚꽃 라떼</a>
     <a href="#">찾아오시는 길</a>
+    <a href="https://instagram.com/mehwa_uk" target="_blank" class="insta-link">Instagram</a>
   </div>
 
   <div class="container">
@@ -238,6 +262,12 @@
       </div>
     </div>
   </div>
+
+  <footer>
+    <p>더 많은 이야기와 소식은 <br>
+       <a href="https://instagram.com/mehwa_uk" target="_blank" class="footer-link">인스타그램(@mehwa_uk)</a>에서 만나보세요.
+    </p>
+  </footer>
 
   <script>
     let navOpen = false;
