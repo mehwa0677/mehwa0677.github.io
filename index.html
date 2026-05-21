@@ -2,45 +2,46 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>캐주얼 한옥 카페</title>
+  <title>당신을 피부를 위한, 천년의 기다림 - 벚꽃 카페</title>
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
-    /* 전체 색상과 폰트 고급화 */
     :root {
-      --primary-color: #5d4a44; /* 깊이 있는 나무 색상 */
-      --accent-color: #d88c9a; /* 벚꽃 포인트 색상 */
-      --bg-color: #fcfbf9; /* 따뜻하고 고급스러운 배경톤 */
+      --bg-color: #fcf9f9; /* 은은한 벚꽃 바탕 */
+      --text-main: #4a3e3d; /* 차분한 고동색 텍스트 */
+      --text-sub: #8a7b7a;
+      --accent: #e8b4b8; /* 채도 낮은 핑크포인트 */
     }
+
     body {
-      font-family: 'Malgun Gothic', sans-serif;
+      font-family: 'Nanum Myeongjo', serif;
       background-color: var(--bg-color);
-      color: #333;
+      color: var(--text-main);
       margin: 0;
       padding: 0;
       overflow-x: hidden;
+      line-height: 1.8;
     }
-    
-    /* 우측 상단 햄버거 메뉴 버튼 */
+
+    /* 슬라이딩 메뉴바 (투명도와 블러 효과 추가) */
     .menu-btn {
       position: fixed;
-      top: 25px;
-      right: 30px;
-      font-size: 28px;
+      top: 30px;
+      right: 40px;
+      font-size: 24px;
       cursor: pointer;
       z-index: 1000;
       background: none;
       border: none;
-      color: var(--primary-color);
+      color: var(--text-main);
       transition: transform 0.3s ease;
     }
-    .menu-btn:hover {
-      transform: scale(1.1);
-    }
-
-    /* 옆에서 나오는 슬라이딩 메뉴바 디자인 */
     .sidenav {
       height: 100%;
       width: 0;
@@ -48,86 +49,139 @@
       z-index: 999;
       top: 0;
       right: 0;
-      background-color: #fff;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
       overflow-x: hidden;
-      transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* 부드러운 애니메이션 */
-      box-shadow: -5px 0 20px rgba(0,0,0,0.05);
-      padding-top: 100px;
-      border-left: 1px solid #f2e3e5;
+      transition: 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      padding-top: 120px;
     }
     .sidenav a {
       padding: 15px 40px;
       text-decoration: none;
-      font-size: 18px;
-      color: var(--primary-color);
+      font-size: 1.1rem;
+      color: var(--text-main);
       display: block;
-      transition: 0.3s;
-      font-weight: bold;
-      letter-spacing: 1px;
+      transition: 0.4s;
+      letter-spacing: 2px;
     }
     .sidenav a:hover {
-      color: var(--accent-color);
-      background-color: #faf8f5;
-      padding-left: 50px; /* 마우스 올렸을 때 살짝 들어가는 효과 */
+      color: var(--accent);
+      padding-left: 50px;
     }
 
-    /* 기존 디자인 다듬기 */
-    header {
-      background-color: transparent;
-      padding: 60px 20px 40px;
-      text-align: center;
-    }
-    h1 {
-      color: var(--primary-color);
-      margin-bottom: 10px;
-      font-size: 2em;
-    }
+    /* 레이아웃 디자인 */
     .container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 0 20px 50px;
+      padding: 0 5%;
     }
-    .hero {
+
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      margin-bottom: 60px;
+      position: relative;
     }
-    .hero img {
+    header h1 {
+      font-size: 2.8rem;
+      font-weight: 400;
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+    header p {
+      font-size: 1.1rem;
+      color: var(--text-sub);
+      letter-spacing: 1px;
+      animation: fadeIn 3s ease-in-out;
+    }
+    header .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      animation: bounce 2s infinite;
+    }
+
+    /* 이미지와 텍스트 교차 배열 (매거진 스타일) */
+    .section-magazine {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 150px 0;
+      gap: 50px;
+    }
+    .section-magazine:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    .img-wrap {
+      flex: 1;
+      position: relative;
+    }
+    .img-wrap img {
       width: 100%;
-      max-width: 700px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* 그림자를 더 부드럽고 깊게 */
+      border-radius: 4px; /* 각진 느낌으로 모던함 강조 */
+      box-shadow: 10px 15px 40px rgba(0,0,0,0.06);
+    }
+    .text-wrap {
+      flex: 1;
+      padding: 20px;
+    }
+    .text-wrap h3 {
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    /* 제목 아래 짧은 선 포인트 */
+    .text-wrap h3::after {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 1px;
+      background-color: var(--accent);
+      margin-top: 15px;
+    }
+
+    /* VR 섹션 */
+    .vr-section {
+      margin: 150px 0;
+      text-align: center;
+    }
+    .vr-section h3 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 40px;
+      letter-spacing: 2px;
     }
     #panorama {
       width: 100%;
-      height: 450px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      margin-bottom: 60px;
+      height: 500px;
+      border-radius: 4px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.05);
     }
-    .menu-section {
-      display: flex;
-      gap: 30px;
-      justify-content: center;
+
+    /* 애니메이션 */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .menu-item {
-      background: #fff;
-      padding: 20px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.04);
-      width: 45%;
-      transition: transform 0.3s ease;
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
     }
-    .menu-item:hover {
-      transform: translateY(-5px); /* 마우스 올리면 살짝 떠오르는 효과 */
-    }
-    .menu-item img {
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 15px;
-    }
-    .highlight {
-      color: var(--accent-color);
+
+    /* 모바일 반응형 처리 */
+    @media (max-width: 768px) {
+      .section-magazine, .section-magazine:nth-child(even) {
+        flex-direction: column;
+        margin: 80px 0;
+      }
+      header h1 { font-size: 2rem; }
     }
   </style>
 </head>
@@ -136,50 +190,61 @@
   <button class="menu-btn" onclick="toggleNav()">☰</button>
 
   <div id="mySidenav" class="sidenav">
-    <a href="#">홈으로</a>
-    <a href="#">공간 둘러보기</a>
-    <a href="#">시그니처 메뉴</a>
-    <a href="#">황리단길 본점 오시는 길</a>
-    <a href="#">Instagram</a>
+    <a href="#">프롤로그</a>
+    <a href="#">공간 이야기</a>
+    <a href="#">벚꽃 라떼</a>
+    <a href="#">찾아오시는 길</a>
   </div>
 
-  <header>
-    <h1>☕ 고즈넉한 여유, 캐주얼 한옥 카페</h1>
-    <p style="color: #777;">일상의 복잡함을 벗어나 툇마루에서 쉬어가세요</p>
-  </header>
-
   <div class="container">
-    <div class="hero">
-      <img src="image.jpg" alt="카페 전경">
-      <h2 style="color: var(--primary-color); margin-top: 30px;">따뜻한 봄날의 휴식처</h2>
-      <p style="color: #666;">정성스럽게 내린 커피와 쉼이 있는 공간입니다.</p>
+    <header>
+      <h1>당신을 피부를 위한,<br>천년의 기다림</h1>
+      <p>1000 Year Cherry Blossom Dream</p>
+      <div class="scroll-indicator">Scroll Down ↓</div>
+    </header>
+
+    <div class="section-magazine">
+      <div class="img-wrap">
+        <img src="image.jpg" alt="메인 전경">
+      </div>
+      <div class="text-wrap">
+        <h3>봄날의 쉼표</h3>
+        <p>복잡한 일상을 뒤로하고 한옥의 정취를 느껴보세요. 창밖으로 흩날리는 벚꽃잎과 함께, 정성스럽게 내린 커피 한 잔이 당신의 하루에 작은 위로가 되기를 바랍니다.</p>
+      </div>
     </div>
 
-    <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 25px;">👀 카페 내부 360도 둘러보기</h3>
-    <div id="panorama"></div>
+    <div class="vr-section">
+      <h3>공간을 미리 거닐다</h3>
+      <div id="panorama"></div>
+    </div>
 
-    <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 35px;">🌸 시즌 시그니처 메뉴</h3>
-    <div class="menu-section">
-      <div class="menu-item">
-        <img src="image1.jpg" alt="시그니처 메뉴">
-        <h4 class="highlight">시즌 한정: 벚꽃 라떼</h4>
-        <p style="font-size: 14px; color: #666;">달콤한 크림과 은은한 봄 내음이 어우러진 시그니처 음료</p>
+    <div class="section-magazine">
+      <div class="text-wrap">
+        <h3>천년의 기다림, 벚꽃 라떼</h3>
+        <p>은은한 벚꽃 향과 부드러운 우유가 어우러진 시그니처 메뉴입니다. 꽃이 피고 지는 짧은 순간의 아름다움을 한 잔의 음료에 정성스레 담아냈습니다.</p>
       </div>
-      <div class="menu-item">
+      <div class="img-wrap">
+        <img src="image1.jpg" alt="벚꽃 라떼">
+      </div>
+    </div>
+
+    <div class="section-magazine">
+      <div class="img-wrap">
         <img src="image2.png" alt="수제 디저트">
-        <h4>수제 디저트</h4>
-        <p style="font-size: 14px; color: #666;">매일 아침 매장에서 직접 굽는 신선한 구움과자</p>
+      </div>
+      <div class="text-wrap">
+        <h3>정성을 굽는 시간</h3>
+        <p>매일 아침, 좋은 재료만을 고집하여 구워내는 수제 구움과자입니다. 커피와 가장 잘 어울리는 달콤한 휴식을 경험해 보세요.</p>
       </div>
     </div>
   </div>
 
   <script>
-    // 메뉴바 열고 닫는 마법의 코드
     let navOpen = false;
     function toggleNav() {
       const nav = document.getElementById("mySidenav");
       if (!navOpen) {
-        nav.style.width = "280px";
+        nav.style.width = "300px";
         navOpen = true;
       } else {
         nav.style.width = "0";
@@ -187,7 +252,6 @@
       }
     }
 
-    // VR 기능
     pannellum.viewer('panorama', {
       "type": "equirectangular",
       "panorama": "vr.jpg",
