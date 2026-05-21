@@ -8,102 +8,186 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
   <style>
+    /* 전체 색상과 폰트 고급화 */
+    :root {
+      --primary-color: #5d4a44; /* 깊이 있는 나무 색상 */
+      --accent-color: #d88c9a; /* 벚꽃 포인트 색상 */
+      --bg-color: #fcfbf9; /* 따뜻하고 고급스러운 배경톤 */
+    }
     body {
       font-family: 'Malgun Gothic', sans-serif;
-      background-color: #faf8f5;
+      background-color: var(--bg-color);
       color: #333;
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
-    header {
+    
+    /* 우측 상단 햄버거 메뉴 버튼 */
+    .menu-btn {
+      position: fixed;
+      top: 25px;
+      right: 30px;
+      font-size: 28px;
+      cursor: pointer;
+      z-index: 1000;
+      background: none;
+      border: none;
+      color: var(--primary-color);
+      transition: transform 0.3s ease;
+    }
+    .menu-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* 옆에서 나오는 슬라이딩 메뉴바 디자인 */
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      right: 0;
       background-color: #fff;
-      padding: 30px 20px;
+      overflow-x: hidden;
+      transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* 부드러운 애니메이션 */
+      box-shadow: -5px 0 20px rgba(0,0,0,0.05);
+      padding-top: 100px;
+      border-left: 1px solid #f2e3e5;
+    }
+    .sidenav a {
+      padding: 15px 40px;
+      text-decoration: none;
+      font-size: 18px;
+      color: var(--primary-color);
+      display: block;
+      transition: 0.3s;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .sidenav a:hover {
+      color: var(--accent-color);
+      background-color: #faf8f5;
+      padding-left: 50px; /* 마우스 올렸을 때 살짝 들어가는 효과 */
+    }
+
+    /* 기존 디자인 다듬기 */
+    header {
+      background-color: transparent;
+      padding: 60px 20px 40px;
       text-align: center;
-      border-bottom: 2px solid #f2e3e5;
     }
     h1 {
-      color: #8c736d;
-      margin-bottom: 5px;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      font-size: 2em;
     }
     .container {
       max-width: 800px;
       margin: 0 auto;
-      padding: 30px 20px;
+      padding: 0 20px 50px;
     }
     .hero {
       text-align: center;
-      margin-bottom: 50px;
+      margin-bottom: 60px;
     }
     .hero img {
       width: 100%;
       max-width: 700px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* 그림자를 더 부드럽고 깊게 */
     }
-    /* VR 화면의 크기와 모양을 잡아주는 코드 */
     #panorama {
       width: 100%;
-      height: 400px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      margin-bottom: 50px;
+      height: 450px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      margin-bottom: 60px;
     }
     .menu-section {
       display: flex;
-      gap: 20px;
+      gap: 30px;
       justify-content: center;
     }
     .menu-item {
       background: #fff;
-      padding: 15px;
-      border-radius: 15px;
+      padding: 20px;
+      border-radius: 20px;
       text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.04);
       width: 45%;
+      transition: transform 0.3s ease;
+    }
+    .menu-item:hover {
+      transform: translateY(-5px); /* 마우스 올리면 살짝 떠오르는 효과 */
     }
     .menu-item img {
       width: 100%;
-      border-radius: 10px;
+      border-radius: 12px;
       margin-bottom: 15px;
     }
     .highlight {
-      color: #d88c9a;
-      font-weight: bold;
+      color: var(--accent-color);
     }
   </style>
 </head>
 <body>
+
+  <button class="menu-btn" onclick="toggleNav()">☰</button>
+
+  <div id="mySidenav" class="sidenav">
+    <a href="#">홈으로</a>
+    <a href="#">공간 둘러보기</a>
+    <a href="#">시그니처 메뉴</a>
+    <a href="#">황리단길 본점 오시는 길</a>
+    <a href="#">Instagram</a>
+  </div>
+
   <header>
     <h1>☕ 고즈넉한 여유, 캐주얼 한옥 카페</h1>
-    <p>일상의 복잡함을 벗어나 툇마루에서 쉬어가세요</p>
+    <p style="color: #777;">일상의 복잡함을 벗어나 툇마루에서 쉬어가세요</p>
   </header>
 
   <div class="container">
     <div class="hero">
       <img src="image.jpg" alt="카페 전경">
-      <h2>따뜻한 봄날의 휴식처</h2>
-      <p>정성스럽게 내린 커피와 쉼이 있는 공간입니다.</p>
+      <h2 style="color: var(--primary-color); margin-top: 30px;">따뜻한 봄날의 휴식처</h2>
+      <p style="color: #666;">정성스럽게 내린 커피와 쉼이 있는 공간입니다.</p>
     </div>
 
-    <h3 style="text-align: center; color: #8c736d; margin-bottom: 20px;">👀 카페 내부 360도 둘러보기 👀</h3>
+    <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 25px;">👀 카페 내부 360도 둘러보기</h3>
     <div id="panorama"></div>
 
-    <h3 style="text-align: center; color: #8c736d; margin-bottom: 30px;">🌸 시즌 시그니처 메뉴 🌸</h3>
+    <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 35px;">🌸 시즌 시그니처 메뉴</h3>
     <div class="menu-section">
       <div class="menu-item">
         <img src="image1.jpg" alt="시그니처 메뉴">
         <h4 class="highlight">시즌 한정: 벚꽃 라떼</h4>
-        <p>달콤한 크림과 은은한 봄 내음이 어우러진 시그니처 음료</p>
+        <p style="font-size: 14px; color: #666;">달콤한 크림과 은은한 봄 내음이 어우러진 시그니처 음료</p>
       </div>
       <div class="menu-item">
         <img src="image2.png" alt="수제 디저트">
         <h4>수제 디저트</h4>
-        <p>매일 아침 매장에서 직접 굽는 신선한 구움과자</p>
+        <p style="font-size: 14px; color: #666;">매일 아침 매장에서 직접 굽는 신선한 구움과자</p>
       </div>
     </div>
   </div>
 
   <script>
+    // 메뉴바 열고 닫는 마법의 코드
+    let navOpen = false;
+    function toggleNav() {
+      const nav = document.getElementById("mySidenav");
+      if (!navOpen) {
+        nav.style.width = "280px";
+        navOpen = true;
+      } else {
+        nav.style.width = "0";
+        navOpen = false;
+      }
+    }
+
+    // VR 기능
     pannellum.viewer('panorama', {
       "type": "equirectangular",
       "panorama": "vr.jpg",
