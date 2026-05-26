@@ -2,114 +2,291 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>비밀의 방 - 앤틱 갤러리</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+  <title>당신을 피부를 위한, 천년의 기다림 - 벚꽃 카페</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --bg-color: #fcf9f9;
+      --text-main: #4a3e3d;
+      --text-sub: #8a7b7a;
+      --accent: #e8b4b8;
+    }
+
     body {
       font-family: 'Nanum Myeongjo', serif;
-      background-color: #e8e1d5; /* 오래된 양피지 느낌의 배경색 */
-      color: #3b2f2f; /* 짙은 세피아 갈색 */
+      background-color: var(--bg-color);
+      color: var(--text-main);
       margin: 0;
       padding: 0;
-      /* 은은한 빈티지 패턴 효과 */
-      background-image: radial-gradient(#d4c5b3 1px, transparent 1px);
-      background-size: 20px 20px; 
+      overflow-x: hidden;
+      line-height: 1.8;
     }
-    .header {
-      text-align: center;
-      padding: 80px 20px 50px;
-      border-bottom: 3px double #8b7355;
-      margin: 0 5% 50px;
+
+    /* 슬라이딩 메뉴바 */
+    .menu-btn {
+      position: fixed;
+      top: 30px;
+      right: 40px;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 1000;
+      background: none;
+      border: none;
+      color: var(--text-main);
+      transition: transform 0.3s ease;
     }
-    .header h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      letter-spacing: 8px;
-      color: #2c1e16;
-      margin-bottom: 10px;
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      right: 0;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      overflow-x: hidden;
+      transition: 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      padding-top: 120px;
     }
-    .header p {
-      font-style: italic;
-      color: #5c4a3d;
+    .sidenav a {
+      padding: 15px 40px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      color: var(--text-main);
+      display: block;
+      transition: 0.4s;
       letter-spacing: 2px;
     }
-    .gallery-container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
+    .sidenav a:hover {
+      color: var(--accent);
+      padding-left: 50px;
     }
-    /* 앤틱 액자 레이아웃 */
-    .frame {
-      background: #fbf8f1;
-      padding: 15px;
-      margin-bottom: 80px;
-      box-shadow: 8px 8px 20px rgba(0,0,0,0.15);
-      border: 1px solid #c8b9a6;
+    
+    /* 인스타그램 특별 링크 디자인 (메뉴바용) */
+    .insta-link {
+      margin-top: 30px;
+      border-top: 1px solid #f2e3e5;
+      padding-top: 20px !important;
+      font-weight: bold;
+    }
+
+    /* 레이아웃 디자인 */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 5%;
+    }
+
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
       position: relative;
     }
-    /* 액자 안쪽 얇은 테두리 */
-    .frame::before {
-      content: "";
-      position: absolute;
-      top: 6px; left: 6px; right: 6px; bottom: 6px;
-      border: 1px solid #8b7355;
-      pointer-events: none;
+    header h1 {
+      font-size: 2.8rem;
+      font-weight: 400;
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in-out;
     }
-    .frame img {
-      width: 100%;
-      display: block;
-      /* 올리는 사진에 자동으로 빈티지한 느낌을 줍니다 */
-      filter: sepia(30%) contrast(110%) brightness(90%); 
-    }
-    .caption {
-      text-align: center;
-      padding: 20px;
+    header p {
       font-size: 1.1rem;
-      color: #4a3b32;
+      color: var(--text-sub);
       letter-spacing: 1px;
+      animation: fadeIn 3s ease-in-out;
     }
-    /* 메인으로 돌아가는 버튼 */
-    .back-btn {
+    header .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      animation: bounce 2s infinite;
+    }
+
+    .section-magazine {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 150px 0;
+      gap: 50px;
+    }
+    .section-magazine:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    .img-wrap {
+      flex: 1;
+      position: relative;
+    }
+    .img-wrap img {
+      width: 100%;
+      border-radius: 4px;
+      box-shadow: 10px 15px 40px rgba(0,0,0,0.06);
+    }
+    .text-wrap {
+      flex: 1;
+      padding: 20px;
+    }
+    .text-wrap h3 {
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .text-wrap h3::after {
+      content: "";
       display: block;
-      width: 250px;
-      margin: 50px auto 100px;
-      padding: 15px;
+      width: 40px;
+      height: 1px;
+      background-color: var(--accent);
+      margin-top: 15px;
+    }
+
+    .vr-section {
+      margin: 150px 0;
       text-align: center;
-      text-decoration: none;
-      color: #e8e1d5;
-      background-color: #3b2f2f;
-      border: 2px solid #2c1e16;
-      font-size: 1.1rem;
+    }
+    .vr-section h3 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 40px;
       letter-spacing: 2px;
+    }
+    #panorama {
+      width: 100%;
+      height: 500px;
+      border-radius: 4px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+    }
+
+    /* 푸터 (맨 아래 꼬리말 구역) */
+    footer {
+      text-align: center;
+      padding: 80px 20px 60px;
+      margin-top: 100px;
+      border-top: 1px solid #f2e3e5;
+      color: var(--text-sub);
+    }
+    
+    /* 인스타그램 특별 링크 디자인 (본문용) */
+    .footer-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
       transition: 0.3s;
     }
-    .back-btn:hover {
-      background-color: #e8e1d5;
-      color: #3b2f2f;
+    .footer-link:hover {
+      color: var(--text-main);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    @media (max-width: 768px) {
+      .section-magazine, .section-magazine:nth-child(even) {
+        flex-direction: column;
+        margin: 80px 0;
+      }
+      header h1 { font-size: 2rem; }
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1>기억의 보관소</h1>
-    <p>오랜 시간이 머무는 앤틱 갤러리</p>
+
+  <button class="menu-btn" onclick="toggleNav()">☰</button>
+
+  <div id="mySidenav" class="sidenav">
+    <a href="#">프롤로그</a>
+    <a href="#">공간 이야기</a>
+    <a href="#">벚꽃 라떼</a>
+    <a href="#">찾아오시는 길</a>
+    <a href="https://instagram.com/mehwa_uk" target="_blank" class="insta-link">Instagram</a>
   </div>
 
-  <div class="gallery-container">
-    <div class="frame">
-      <img src="image3.jpg" alt="앤틱 이미지 1">
-      <div class="caption">잊혀진 시간의 조각</div>
+  <div class="container">
+    <header>
+      <h1>당신을 피부를 위한,<br>천년의 기다림</h1>
+      <p>1000 Year Cherry Blossom Dream</p>
+      <div class="scroll-indicator">Scroll Down ↓</div>
+    </header>
+
+    <div class="section-magazine">
+      <div class="img-wrap">
+        <img src="image.jpg" alt="메인 전경">
+      </div>
+      <div class="text-wrap">
+        <h3>봄날의 쉼표</h3>
+        <p>복잡한 일상을 뒤로하고 한옥의 정취를 느껴보세요. 창밖으로 흩날리는 벚꽃잎과 함께, 정성스럽게 내린 커피 한 잔이 당신의 하루에 작은 위로가 되기를 바랍니다.</p>
+      </div>
     </div>
-    <div class="frame">
-      <img src="image4.jpg" alt="앤틱 이미지 2">
-      <div class="caption">빛바랜 기억 속의 온도</div>
+
+    <div class="vr-section">
+      <h3>공간을 미리 거닐다</h3>
+      <div id="panorama"></div>
     </div>
-    <div class="frame">
-      <img src="image5.jpg" alt="앤틱 이미지 3">
-      <div class="caption">오래된 서랍 속 이야기</div>
+
+    <div class="section-magazine">
+      <div class="text-wrap">
+        <h3>천년의 기다림, 벚꽃 라떼</h3>
+        <p>은은한 벚꽃 향과 부드러운 우유가 어우러진 시그니처 메뉴입니다. 꽃이 피고 지는 짧은 순간의 아름다움을 한 잔의 음료에 정성스레 담아냈습니다.</p>
+      </div>
+      <div class="img-wrap">
+        <img src="image1.jpg" alt="벚꽃 라떼">
+      </div>
+    </div>
+
+    <div class="section-magazine">
+      <div class="img-wrap">
+        <img src="image2.png" alt="수제 디저트">
+      </div>
+      <div class="text-wrap">
+        <h3>정성을 굽는 시간</h3>
+        <p>매일 아침, 좋은 재료만을 고집하여 구워내는 수제 구움과자입니다. 커피와 가장 잘 어울리는 달콤한 휴식을 경험해 보세요.</p>
+      </div>
     </div>
   </div>
 
-  <a href="index.html" class="back-btn">메인으로 돌아가기</a>
+  <footer>
+    <p>더 많은 이야기와 소식은 <br>
+       <a href="https://instagram.com/mehwa_uk" target="_blank" class="footer-link">인스타그램(@mehwa_uk)</a>에서 만나보세요.
+    </p>
+  </footer>
+
+  <script>
+    let navOpen = false;
+    function toggleNav() {
+      const nav = document.getElementById("mySidenav");
+      if (!navOpen) {
+        nav.style.width = "300px";
+        navOpen = true;
+      } else {
+        nav.style.width = "0";
+        navOpen = false;
+      }
+    }
+
+    pannellum.viewer('panorama', {
+      "type": "equirectangular",
+      "panorama": "vr.jpg?v=2",
+      "autoLoad": true
+    });
+  </script>
 </body>
 </html>
