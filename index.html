@@ -2,177 +2,323 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>여행 예약 앱 UI 구현</title>
+  <title>당신의 피부를 위한, 천년의 기다림</title>
   
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* 전체 스타일 초기화 */
     :root {
-      --primary-color: #00b4d8; /* 메인 파란색 */
-      --secondary-color: #ff6b6b; /* 포인트 분홍색 */
-      --text-color: #333;
-      --bg-color: #f7f9fc; /* 연한 배경색 */
+      --bg-outer: #e8e1d5; /* 바깥 배경: 오래된 양피지 색 */
+      --bg-screen: #fbf8f1; /* 앱 화면 내부: 부드러운 크림색 */
+      --text-main: #3b2f2f; /* 메인 글씨: 깊은 세피아 갈색 */
+      --text-sub: #7a6b60; /* 서브 글씨: 빛바랜 갈색 */
+      --accent: #8b7355; /* 포인트: 앤틱 브론즈 */
+      --accent-rose: #d6a2a8; /* 은은한 벚꽃 핑크 */
     }
+
     body {
-      font-family: 'Noto Sans KR', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
+      font-family: 'Nanum Myeongjo', serif;
+      background-color: var(--bg-outer);
+      color: var(--text-main);
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-    /* 컨테이너 스타일 */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 50px 20px;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 30px;
+      min-height: 100vh;
+      background-image: radial-gradient(#d4c5b3 1px, transparent 1px);
+      background-size: 20px 20px;
     }
-    /* 앱 화면 카드 스타일 */
+
+    /* 3개 화면을 감싸는 전체 컨테이너 (정밀 정렬) */
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      padding: 60px 20px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    /* 스마트폰 인터페이스 프레임 고도화 */
     .app-screen {
       width: 360px;
-      height: 640px;
-      background-color: #fff;
-      border-radius: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      height: 720px;
+      background-color: var(--bg-screen);
+      border-radius: 40px;
+      box-shadow: 0 20px 50px rgba(44, 30, 22, 0.25);
+      border: 2px solid #c8b9a6;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-    }
-    /* 헤더 스타일 */
-    header {
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header h1 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin: 0;
-    }
-    header .profile-icon {
-      width: 30px;
-      height: 30px;
-      background-color: #ccc;
-      border-radius: 50%;
-    }
-    /* 메인 콘텐츠 스타일 */
-    main {
-      flex: 1;
-      padding: 0 20px;
-      overflow-y: auto;
-    }
-    /* 검색 바 스타일 */
-    .search-bar {
-      background-color: #eee;
-      border-radius: 20px;
-      padding: 10px 15px;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .search-bar input {
-      border: none;
-      background: none;
-      flex: 1;
-      font-size: 0.9rem;
-    }
-    .search-bar .search-icon {
-      width: 15px;
-      height: 15px;
-      background-color: #777;
-    }
-    /* 카테고리 탭 스타일 */
-    .category-tabs {
-      list-style: none;
-      padding: 0;
-      margin: 0 -20px 20px -20px;
-      display: flex;
-      gap: 5px;
-    }
-    .category-tabs li {
-      padding: 10px 20px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      border-radius: 10px;
-    }
-    .category-tabs li.active {
-      background-color: var(--primary-color);
-      color: #fff;
-    }
-    /* 콘텐츠 카드 스타일 */
-    .content-card {
-      background-color: #fff;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-      overflow: hidden;
-    }
-    .content-card-img {
-      width: 100%;
-      height: 150px;
-      background-color: #eee;
       position: relative;
     }
-    .content-card-img .discount-tag {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background-color: var(--secondary-color);
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 10px;
-      font-size: 0.7rem;
-    }
-    .content-card-text {
-      padding: 15px;
-    }
-    .content-card-text h3 {
-      font-size: 1rem;
-      margin-bottom: 5px;
-    }
-    .content-card-text p {
-      font-size: 0.8rem;
-      color: #777;
-    }
-    /* 하단 내비게이션 바 스타일 */
-    footer {
-      padding: 15px 20px;
-      background-color: #fff;
-      border-top: 1px solid #eee;
+
+    /* 상단 헤더 정밀 조절 */
+    .app-header {
+      padding: 25px 20px 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px double var(--accent);
+      background-color: var(--bg-screen);
     }
-    footer .nav-icon {
-      width: 20px;
-      height: 20px;
-      background-color: #ccc;
+    .app-header h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: 2px;
+      color: var(--text-main);
     }
-    footer .nav-icon.active {
-      background-color: var(--primary-color);
+    .icon-btn {
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text-main);
+      transition: color 0.3s, transform 0.3s;
+    }
+    .icon-btn:hover {
+      color: var(--accent-rose);
+      transform: scale(1.1);
     }
 
-    /* 🌟 버튼 호버 효과 추가 */
-    .search-btn:hover {
-      background-color: #333;
+    /* 내부 스크롤 영역 간격 표준화 */
+    .app-main {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
     }
-    .price-btn:hover, .filter-btn:hover {
-      background-color: #eee;
+
+    /* 스크롤바 미니멀 디자인 */
+    .app-main::-webkit-scrollbar {
+      width: 4px;
     }
-    .select-btn:hover {
-      background-color: #333;
+    .app-main::-webkit-scrollbar-thumb {
+      background-color: var(--accent);
+      border-radius: 2px;
     }
-    .toggle-btn.active:hover {
-      background-color: #333;
+
+    /* 타이틀 및 텍스트 정렬 */
+    .intro-text {
+      margin-bottom: 25px;
+    }
+    .intro-text h3 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1.4;
+      margin: 0 0 10px 0;
+      letter-spacing: 1px;
+    }
+    .intro-text p {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* 검색 바 스타일 정렬 */
+    .search-box {
+      border: 1px solid #c8b9a6;
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      background-color: #fff;
+    }
+
+    /* 앤틱 태그 필터 정렬 */
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 25px;
+      padding: 0;
+      list-style: none;
+    }
+    .filter-tabs li {
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      border: 1px solid #c8b9a6;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background-color: #fff;
+    }
+    .filter-tabs li.active, .filter-tabs li:hover {
+      background-color: var(--text-main);
+      color: var(--bg-screen);
+      border-color: var(--text-main);
+    }
+
+    /* 매거진/콘텐츠 카드 컴포넌트 정렬 */
+    .magazine-card {
+      background: #fff;
+      border: 1px solid #e8e1d5;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+      margin-bottom: 20px;
+    }
+    .magazine-card img {
+      width: 100%;
+      display: block;
+      filter: sepia(15%);
+    }
+    .card-body {
+      padding: 20px;
+    }
+    .card-body h4 {
+      font-size: 1.1rem;
+      margin: 0 0 10px 0;
+      font-weight: 700;
+    }
+    .card-body p {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* 토글형 버튼 그룹 정렬 */
+    .toggle-container {
+      display: flex;
+      border: 1px solid #c8b9a6;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 25px;
+    }
+    .toggle-btn {
+      flex: 1;
+      padding: 10px;
+      background: #fff;
+      border: none;
+      font-family: inherit;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--text-sub);
+      transition: 0.3s;
+    }
+    .toggle-btn.active, .toggle-btn:hover {
+      background-color: var(--accent);
+      color: #fff;
+    }
+
+    /* VR 영역 정밀 맞춤 */
+    .vr-wrapper {
+      position: relative;
+      margin-bottom: 25px;
+    }
+    #panorama {
+      width: 100%;
+      height: 280px;
+      border-radius: 4px;
+      border: 1px solid #c8b9a6;
+    }
+
+    /* 리스트형 아이템 레이아웃 (3번째 화면용) */
+    .list-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: #fff;
+      padding: 12px;
+      border: 1px solid #e8e1d5;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+    .list-item img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 2px;
+      filter: sepia(20%);
+    }
+    .list-item-text {
+      flex: 1;
+    }
+    .list-item-text h4 {
+      font-size: 0.95rem;
+      margin: 0 0 5px 0;
+    }
+    .list-item-text p {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* 정밀하게 조절된 서브 액자 구조 */
+    .antique-frame {
+      border: 1px solid #c8b9a6;
+      padding: 6px;
+      background: #fff;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .antique-frame-inner {
+      border: 1px solid var(--accent);
+      position: relative;
+    }
+    .antique-frame img {
+      width: 100%;
+      display: block;
+      filter: sepia(30%) contrast(105%);
+    }
+
+    /* 하단 정렬 메인 버튼 */
+    .action-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background-color: var(--text-main);
+      color: var(--bg-screen);
+      border: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      box-sizing: border-box;
+      margin-top: auto;
+      transition: background-color 0.3s;
+    }
+    .action-btn:hover {
+      background-color: var(--accent);
+    }
+
+    /* 하단 탭바 정밀 배치 */
+    .app-footer {
+      height: 60px;
+      border-top: 1px solid #e8e1d5;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-color: #fff;
+    }
+    .footer-tab {
+      font-size: 1.1rem;
+      color: #9c8c82;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .footer-tab.active, .footer-tab:hover {
+      color: var(--text-main);
+    }
+
+    /* 반응형 화면 처리 */
+    @media (max-width: 768px) {
+      .container { padding: 20px 10px; gap: 30px; }
     }
   </style>
 </head>
@@ -180,113 +326,140 @@
 
   <div class="container">
     
-    <div class="app-screen app-screen--home">
-      <header>
-        <h1>Hi, Mike!</h1>
-        <div class="profile-icon"></div>
-      </header>
-      <main>
-        <div class="search-bar">
-          <input type="text" placeholder="New York, US">
-          <div class="search-icon"></div>
+    <div class="app-screen">
+      <div class="app-header">
+        <span class="icon-btn">🌿</span>
+        <h2>PROLOGUE</h2>
+        <span class="icon-btn">☰</span>
+      </div>
+      <div class="app-main">
+        <div class="intro-text">
+          <h3>당신의 피부를 위한,<br>천년의 기다림</h3>
+          <p>1000 Year Cherry Blossom Dream</p>
         </div>
-        <ul class="category-tabs">
-          <li class="active">All</li>
-          <li>Asia</li>
-          <li>America</li>
-          <li>Europe</li>
+        <div class="search-box">
+          <span>경주 황리단길 한옥 카페 검색</span>
+          <span>🔍</span>
+        </div>
+        <ul class="filter-tabs">
+          <li class="active">전체</li>
+          <li>공간</li>
+          <li>메뉴</li>
         </ul>
-        <div class="content-card">
-          <div class="content-card-img">
-            <div class="discount-tag">20% off</div>
-          </div>
-          <div class="content-card-text">
-            <h3>London, England</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <div class="magazine-card">
+          <img src="image.jpg" alt="카페 전경">
+          <div class="card-body">
+            <h4>봄날의 쉼표</h4>
+            <p>복잡한 일상을 뒤로하고 한옥의 정취를 느껴보세요. 창밖으로 흩날리는 벚꽃잎과 함께, 정성스럽게 내린 커피 한 잔이 당신의 하루에 작은 위로가 됩니다.</p>
           </div>
         </div>
-      </main>
-      <footer>
-        <div class="nav-icon active"></div>
-        <div class="nav-icon"></div>
-        <div class="nav-icon"></div>
-        <div class="nav-icon"></div>
-        <div class="nav-icon"></div>
-      </footer>
+      </div>
+      <div class="app-footer">
+        <span class="footer-tab active">🏠</span>
+        <span class="footer-tab">👁️</span>
+        <span class="footer-tab">🌸</span>
+        <span class="footer-tab">📜</span>
+      </div>
     </div>
 
-    <div class="app-screen app-screen--pick">
-      <header>
-        <div class="back-icon"></div>
-        <h1>Pick Your Trip</h1>
-      </header>
-      <main>
-        <ul class="category-tabs">
-          <li>Hotel</li>
-          <li class="active">Flight</li>
-          <li>More</li>
-        </ul>
-        <div class="toggle-btns">
-          <button class="toggle-btn active">Roundtrip</button>
-          <button class="toggle-btn">Oneway</button>
+    <div class="app-screen">
+      <div class="app-header">
+        <span class="icon-btn">←</span>
+        <h2>SPACE STORY</h2>
+        <span class="icon-btn">⚙️</span>
+      </div>
+      <div class="app-main">
+        <div class="intro-text">
+          <h3>공간을 미리 거닐다</h3>
+          <p>시간이 멈춘 듯한 툇마루와 서까래 아래의 여유</p>
         </div>
-        <div class="input-fields">
-          <div class="input-field">
-            <label>From</label>
-            <input type="text" value="London, ENG">
-          </div>
-          <div class="input-field">
-            <label>To</label>
-            <input type="text" value="New York, US">
-          </div>
-          <div class="input-field input-field--date">
-            <label>Departure</label>
-            <input type="text" value="Wed, 25 Nov 20">
-          </div>
-          <div class="input-field input-field--date">
-            <label>Return</label>
-            <input type="text" value="Wed, 25 Nov 20">
-          </div>
-          <div class="input-field input-field--class">
-            <label>Class</label>
-            <input type="text" value="Business">
-          </div>
-          <div class="input-field input-field--passenger">
-            <label>Passenger</label>
-            <input type="text" value="4">
-          </div>
+        <div class="toggle-container">
+          <button class="toggle-btn active">본채 내부</button>
+          <button class="toggle-btn">마당 정원</button>
         </div>
-        <button class="search-btn">Search</button>
-      </main>
-      <footer>
-        <div class="nav-icon"></div>
-        <div class="nav-icon"></div>
-        <div class="nav-icon"></div>
-        <div class="nav-icon"></div>
-        <div class="nav-icon"></div>
-      </footer>
+        
+        <div class="vr-wrapper">
+          <div id="panorama"></div>
+        </div>
+
+        <div class="card-body" style="padding: 10px 0; margin-bottom: 20px;">
+          <p style="font-size: 0.8rem; color: var(--text-sub); line-height: 1.6;">
+            화면을 마우스로 드래그하면 한옥 카페 내부의 고즈넉한 인테리어를 360도 가상 가상현실(VR)로 생생하게 둘러보실 수 있습니다.
+          </p>
+        </div>
+        
+        <button class="action-btn" onclick="alert('앤틱 갤러리 준비 중입니다.')">비밀의 방 입장하기</button>
+      </div>
+      <div class="app-footer">
+        <span class="footer-tab">🏠</span>
+        <span class="footer-tab active">👁️</span>
+        <span class="footer-tab">🌸</span>
+        <span class="footer-tab">📜</span>
+      </div>
     </div>
 
-    <div class="app-screen app-screen--result">
-      <header>
-        <div class="back-icon"></div>
-        <h1>Flight</h1>
-      </header>
-      <main>
-        <div class="flight-info">
-          <p>London, ENG</p>
-          <p>New York, US</p>
-          <p>Wed, 25 Nov 20</p>
+    <div class="app-screen">
+      <div class="app-header">
+        <span class="icon-btn">←</span>
+        <h2>MENU & ARCHIVE</h2>
+        <span class="icon-btn">⏳</span>
+      </div>
+      <div class="app-main">
+        <div class="intro-text" style="margin-bottom: 15px;">
+          <h3>정성을 담은 기록</h3>
+          <p>꽃이 피고 지는 순간의 아름다움을 담아냅니다</p>
         </div>
-        <div class="sort-filter-btns">
-          <button class="price-btn active">Price</button>
-          <button class="filter-btn">Filter</button>
-        </div>
-        <div class="flight-card">
-          <div class="flight-card-logo"></div>
-          <div class="flight-card-time">
-            <p>ENG</p>
-            <p>06:22 AM</p>
+
+        <div class="list-item">
+          <img src="image1.jpg" alt="벚꽃 라떼">
+          <div class="list-item-text">
+            <h4 style="color: var(--accent-rose); font-weight: 700;">천년의 기다림, 벚꽃 라떼</h4>
+            <p>은은한 벚꽃 향과 부드러운 우유가 어우러진 크림 음료</p>
           </div>
-          <div class="flight-card-duration">
-            <p>6h 30m</p>
+        </div>
+        <div class="list-item">
+          <img src="image2.png" alt="수제 디저트">
+          <div class="list-item-text">
+            <h4>정성을 굽는 시간</h4>
+            <p>매일 아침 매장에서 직접 구워내는 빈티지 구움과자</p>
+          </div>
+        </div>
+
+        <div class="antique-frame" style="margin-top: 10px;">
+          <div class="antique-frame-inner">
+            <img src="image3.jpg" alt="앤틱 3">
+          </div>
+        </div>
+        <div class="antique-frame">
+          <div class="antique-frame-inner">
+            <img src="image4.jpg" alt="앤틱 4">
+          </div>
+        </div>
+        <div class="antique-frame">
+          <div class="antique-frame-inner">
+            <img src="image5.jpg" alt="앤틱 5">
+          </div>
+        </div>
+
+        <a href="https://instagram.com/mehwa_uk" target="_blank" class="action-btn" style="margin-top: 10px;">Instagram 연결</a>
+      </div>
+      <div class="app-footer">
+        <span class="footer-tab">🏠</span>
+        <span class="footer-tab">👁️</span>
+        <span class="footer-tab active">🌸</span>
+        <span class="footer-tab">📜</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // VR 파노라마 초기화 (캐시 버스팅 포함 vr.jpg?v=2)
+    pannellum.viewer('panorama', {
+      "type": "equirectangular",
+      "panorama": "vr.jpg?v=2",
+      "autoLoad": true
+    });
+  </script>
+</body>
+</html>
