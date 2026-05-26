@@ -13,12 +13,12 @@
 
   <style>
     :root {
-      --bg-outer: #e8e1d5; /* 바깥 배경: 오래된 양피지 색 */
-      --bg-screen: #fbf8f1; /* 앱 화면 내부: 부드러운 크림색 */
-      --text-main: #3b2f2f; /* 메인 글씨: 깊은 세피아 갈색 */
-      --text-sub: #7a6b60; /* 서브 글씨: 빛바랜 갈색 */
-      --accent: #8b7355; /* 포인트: 앤틱 브론즈 */
-      --accent-rose: #d6a2a8; /* 은은한 벚꽃 핑크 */
+      --bg-outer: #e8e1d5;
+      --bg-screen: #fbf8f1;
+      --text-main: #3b2f2f;
+      --text-sub: #7a6b60;
+      --accent: #8b7355;
+      --accent-rose: #d6a2a8;
     }
 
     body {
@@ -35,7 +35,6 @@
       background-size: 20px 20px;
     }
 
-    /* 3개 화면을 감싸는 전체 컨테이너 (정밀 정렬) */
     .container {
       display: flex;
       flex-wrap: wrap;
@@ -46,7 +45,6 @@
       margin: 0 auto;
     }
 
-    /* 스마트폰 인터페이스 프레임 고도화 */
     .app-screen {
       width: 360px;
       height: 720px;
@@ -60,7 +58,6 @@
       position: relative;
     }
 
-    /* 상단 헤더 정밀 조절 */
     .app-header {
       padding: 25px 20px 15px;
       display: flex;
@@ -87,7 +84,6 @@
       transform: scale(1.1);
     }
 
-    /* 내부 스크롤 영역 간격 표준화 */
     .app-main {
       flex: 1;
       padding: 20px;
@@ -96,7 +92,6 @@
       flex-direction: column;
     }
 
-    /* 스크롤바 미니멀 디자인 */
     .app-main::-webkit-scrollbar {
       width: 4px;
     }
@@ -105,7 +100,6 @@
       border-radius: 2px;
     }
 
-    /* 타이틀 및 텍스트 정렬 */
     .intro-text {
       margin-bottom: 25px;
     }
@@ -123,7 +117,7 @@
       line-height: 1.6;
     }
 
-    /* 검색 바 스타일 정렬 */
+    /* 🌟 구글 검색 연동을 위해 수정된 검색창 스타일 */
     .search-box {
       border: 1px solid #c8b9a6;
       border-radius: 8px;
@@ -132,12 +126,33 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.85rem;
-      color: var(--text-sub);
       background-color: #fff;
     }
+    .search-box input {
+      border: none;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      font-family: inherit;
+    }
+    .search-box input::placeholder {
+      color: var(--text-sub);
+    }
+    .search-box button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 0;
+      color: var(--text-main);
+      transition: transform 0.2s;
+    }
+    .search-box button:hover {
+      transform: scale(1.2);
+    }
 
-    /* 앤틱 태그 필터 정렬 */
     .filter-tabs {
       display: flex;
       gap: 8px;
@@ -160,7 +175,6 @@
       border-color: var(--text-main);
     }
 
-    /* 매거진/콘텐츠 카드 컴포넌트 정렬 */
     .magazine-card {
       background: #fff;
       border: 1px solid #e8e1d5;
@@ -189,7 +203,6 @@
       line-height: 1.6;
     }
 
-    /* 토글형 버튼 그룹 정렬 */
     .toggle-container {
       display: flex;
       border: 1px solid #c8b9a6;
@@ -213,7 +226,6 @@
       color: #fff;
     }
 
-    /* VR 영역 정밀 맞춤 */
     .vr-wrapper {
       position: relative;
       margin-bottom: 25px;
@@ -225,7 +237,6 @@
       border: 1px solid #c8b9a6;
     }
 
-    /* 리스트형 아이템 레이아웃 (3번째 화면용) */
     .list-item {
       display: flex;
       align-items: center;
@@ -257,7 +268,6 @@
       line-height: 1.4;
     }
 
-    /* 정밀하게 조절된 서브 액자 구조 */
     .antique-frame {
       border: 1px solid #c8b9a6;
       padding: 6px;
@@ -275,7 +285,6 @@
       filter: sepia(30%) contrast(105%);
     }
 
-    /* 하단 정렬 메인 버튼 */
     .action-btn {
       display: block;
       width: 100%;
@@ -297,7 +306,6 @@
       background-color: var(--accent);
     }
 
-    /* 하단 탭바 정밀 배치 */
     .app-footer {
       height: 60px;
       border-top: 1px solid #e8e1d5;
@@ -316,7 +324,6 @@
       color: var(--text-main);
     }
 
-    /* 반응형 화면 처리 */
     @media (max-width: 768px) {
       .container { padding: 20px 10px; gap: 30px; }
     }
@@ -337,10 +344,12 @@
           <h3>당신의 피부를 위한,<br>천년의 기다림</h3>
           <p>1000 Year Cherry Blossom Dream</p>
         </div>
-        <div class="search-box">
-          <span>경주 황리단길 한옥 카페 검색</span>
-          <span>🔍</span>
-        </div>
+
+        <form action="https://www.google.com/search" method="GET" target="_blank" class="search-box">
+          <input type="text" name="q" placeholder="경주 황리단길 한옥 카페 검색" required>
+          <button type="submit">🔍</button>
+        </form>
+
         <ul class="filter-tabs">
           <li class="active">전체</li>
           <li>공간</li>
@@ -454,7 +463,6 @@
   </div>
 
   <script>
-    // VR 파노라마 초기화 (캐시 버스팅 포함 vr.jpg?v=2)
     pannellum.viewer('panorama', {
       "type": "equirectangular",
       "panorama": "vr.jpg?v=2",
