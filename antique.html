@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>비밀의 방 - 앤틱 갤러리</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Nanum Myeongjo', serif;
+      background-color: #e8e1d5; /* 오래된 양피지 느낌의 배경색 */
+      color: #3b2f2f; /* 짙은 세피아 갈색 */
+      margin: 0;
+      padding: 0;
+      /* 은은한 빈티지 패턴 효과 */
+      background-image: radial-gradient(#d4c5b3 1px, transparent 1px);
+      background-size: 20px 20px; 
+    }
+    .header {
+      text-align: center;
+      padding: 80px 20px 50px;
+      border-bottom: 3px double #8b7355;
+      margin: 0 5% 50px;
+    }
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: 8px;
+      color: #2c1e16;
+      margin-bottom: 10px;
+    }
+    .header p {
+      font-style: italic;
+      color: #5c4a3d;
+      letter-spacing: 2px;
+    }
+    .gallery-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    /* 앤틱 액자 레이아웃 */
+    .frame {
+      background: #fbf8f1;
+      padding: 15px;
+      margin-bottom: 80px;
+      box-shadow: 8px 8px 20px rgba(0,0,0,0.15);
+      border: 1px solid #c8b9a6;
+      position: relative;
+    }
+    /* 액자 안쪽 얇은 테두리 */
+    .frame::before {
+      content: "";
+      position: absolute;
+      top: 6px; left: 6px; right: 6px; bottom: 6px;
+      border: 1px solid #8b7355;
+      pointer-events: none;
+    }
+    .frame img {
+      width: 100%;
+      display: block;
+      /* 올리는 사진에 자동으로 빈티지한 느낌을 줍니다 */
+      filter: sepia(30%) contrast(110%) brightness(90%); 
+    }
+    .caption {
+      text-align: center;
+      padding: 20px;
+      font-size: 1.1rem;
+      color: #4a3b32;
+      letter-spacing: 1px;
+    }
+    /* 메인으로 돌아가는 버튼 */
+    .back-btn {
+      display: block;
+      width: 250px;
+      margin: 50px auto 100px;
+      padding: 15px;
+      text-align: center;
+      text-decoration: none;
+      color: #e8e1d5;
+      background-color: #3b2f2f;
+      border: 2px solid #2c1e16;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      transition: 0.3s;
+    }
+    .back-btn:hover {
+      background-color: #e8e1d5;
+      color: #3b2f2f;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>기억의 보관소</h1>
+    <p>오랜 시간이 머무는 앤틱 갤러리</p>
+  </div>
+
+  <div class="gallery-container">
+    <div class="frame">
+      <img src="image3.jpg" alt="앤틱 이미지 1">
+      <div class="caption">잊혀진 시간의 조각</div>
+    </div>
+    <div class="frame">
+      <img src="image4.jpg" alt="앤틱 이미지 2">
+      <div class="caption">빛바랜 기억 속의 온도</div>
+    </div>
+    <div class="frame">
+      <img src="image5.jpg" alt="앤틱 이미지 3">
+      <div class="caption">오래된 서랍 속 이야기</div>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-btn">메인으로 돌아가기</a>
+</body>
+</html>
