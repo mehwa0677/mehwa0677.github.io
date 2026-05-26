@@ -6,7 +6,6 @@
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
@@ -29,7 +28,6 @@
       line-height: 1.8;
     }
 
-    /* 슬라이딩 메뉴바 */
     .menu-btn {
       position: fixed;
       top: 30px;
@@ -68,8 +66,6 @@
       color: var(--accent);
       padding-left: 50px;
     }
-    
-    /* 인스타그램 특별 링크 디자인 (메뉴바용) */
     .insta-link {
       margin-top: 30px;
       border-top: 1px solid #f2e3e5;
@@ -77,7 +73,6 @@
       font-weight: bold;
     }
 
-    /* 레이아웃 디자인 */
     .container {
       max-width: 1000px;
       margin: 0 auto;
@@ -106,6 +101,26 @@
       letter-spacing: 1px;
       animation: fadeIn 3s ease-in-out;
     }
+    
+    /* 🌟 새로 추가된 연결 버튼 디자인 */
+    .special-btn {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 15px 40px;
+      background-color: var(--text-main);
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      transition: 0.3s;
+      border: 1px solid var(--text-main);
+      animation: fadeIn 4s ease-in-out;
+    }
+    .special-btn:hover {
+      background-color: transparent;
+      color: var(--text-main);
+    }
+
     header .scroll-indicator {
       position: absolute;
       bottom: 40px;
@@ -169,7 +184,6 @@
       box-shadow: 0 15px 40px rgba(0,0,0,0.05);
     }
 
-    /* 푸터 (맨 아래 꼬리말 구역) */
     footer {
       text-align: center;
       padding: 80px 20px 60px;
@@ -177,8 +191,6 @@
       border-top: 1px solid #f2e3e5;
       color: var(--text-sub);
     }
-    
-    /* 인스타그램 특별 링크 디자인 (본문용) */
     .footer-link {
       color: var(--accent);
       text-decoration: none;
@@ -216,7 +228,7 @@
     <a href="#">프롤로그</a>
     <a href="#">공간 이야기</a>
     <a href="#">벚꽃 라떼</a>
-    <a href="#">찾아오시는 길</a>
+    <a href="antique.html">비밀의 방 (앤틱 갤러리)</a>
     <a href="https://instagram.com/mehwa_uk" target="_blank" class="insta-link">Instagram</a>
   </div>
 
@@ -224,6 +236,9 @@
     <header>
       <h1>당신을 피부를 위한,<br>천년의 기다림</h1>
       <p>1000 Year Cherry Blossom Dream</p>
+      
+      <a href="antique.html" class="special-btn">비밀의 앤틱 갤러리 입장하기</a>
+      
       <div class="scroll-indicator">Scroll Down ↓</div>
     </header>
 
