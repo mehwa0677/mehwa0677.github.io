@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>비밀의 방 - 깊은 숲속의 쉼표</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Nanum Myeongjo', serif;
+      background-color: #f1f4f1; /* 안개 낀 숲의 연한 배경 */
+      color: #2c3e2e; /* 짙은 숲색 */
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      text-align: center;
+      padding: 100px 20px 60px;
+      /* 은은한 안개 느낌의 그라데이션 */
+      background: linear-gradient(to bottom, #dce5dc, #f1f4f1); 
+    }
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 5px;
+      margin-bottom: 15px;
+      color: #1a2b1c;
+    }
+    .header p {
+      font-size: 1.1rem;
+      color: #5c785e;
+      letter-spacing: 2px;
+    }
+    .forest-gallery {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .forest-card {
+      background: #fff;
+      border-radius: 20px; /* 둥글고 부드러운 모서리 */
+      overflow: hidden;
+      margin-bottom: 60px;
+      box-shadow: 0 15px 35px rgba(44, 62, 46, 0.08);
+      transition: transform 0.4s ease;
+    }
+    .forest-card:hover {
+      transform: translateY(-10px); /* 마우스를 올리면 살짝 떠오름 */
+    }
+    .forest-card img {
+      width: 100%;
+      display: block;
+      /* 숲속의 몽환적인 느낌을 위해 아주 살짝 부드러운 필터 적용 */
+      filter: contrast(95%) brightness(95%);
+    }
+    .card-caption {
+      padding: 30px;
+      text-align: center;
+    }
+    .card-caption h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.4rem;
+      color: #2c3e2e;
+    }
+    .card-caption p {
+      margin: 0;
+      color: #6b846d;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .back-btn-container {
+      text-align: center;
+      padding: 40px 20px 100px;
+    }
+    .back-btn {
+      display: inline-block;
+      padding: 15px 40px;
+      background-color: #2c3e2e;
+      color: #f1f4f1;
+      text-decoration: none;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      border-radius: 30px;
+      transition: 0.3s;
+    }
+    .back-btn:hover {
+      background-color: #5c785e;
+      box-shadow: 0 10px 20px rgba(92, 120, 94, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>깊은 숲속의 쉼표</h1>
+    <p>바람 소리만 머무는 고요한 공간</p>
+  </div>
+
+  <div class="forest-gallery">
+    <div class="forest-card">
+      <img src="image6.jpg" alt="숲속 이미지 1">
+      <div class="card-caption">
+        <h3>아침 이슬이 맺힌 길</h3>
+        <p>촉촉한 흙내음과 함께 걷는 비밀스러운 산책로</p>
+      </div>
+    </div>
+    <div class="forest-card">
+      <img src="image7.jpg" alt="숲속 이미지 2">
+      <div class="card-caption">
+        <h3>나뭇잎 사이의 햇살</h3>
+        <p>조용히 부서지는 빛의 조각들을 감상해 보세요</p>
+      </div>
+    </div>
+    <div class="forest-card">
+      <img src="image8.jpg" alt="숲속 이미지 3">
+      <div class="card-caption">
+        <h3>오랜 나무의 위로</h3>
+        <p>수백 년의 시간을 품은 나무 아래서의 온전한 휴식</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="back-btn-container">
+    <a href="index.html" class="back-btn">메인으로 돌아가기</a>
+  </div>
+</body>
+</html>
