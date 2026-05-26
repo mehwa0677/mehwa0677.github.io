@@ -9,460 +9,335 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
+    /* 레퍼런스 디자인 컬러 팔레트 */
     :root {
-      --bg-outer: #e8e1d5;
-      --bg-screen: #fbf8f1;
-      --text-main: #3b2f2f;
-      --text-sub: #7a6b60;
-      --accent: #8b7355;
-      --accent-rose: #d6a2a8;
+      --bg-cream: #f9f7f1; /* 따뜻한 크림색 바탕 */
+      --dark-olive: #3c4a38; /* 짙은 올리브 그린 */
+      --light-green: #d2dfb9; /* 형광빛 도는 연두색 포인트 */
+      --text-main: #222;
+      --text-sub: #666;
     }
 
     body {
-      font-family: 'Nanum Myeongjo', serif;
-      background-color: var(--bg-outer);
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: var(--bg-cream);
       color: var(--text-main);
       margin: 0;
       padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background-image: radial-gradient(#d4c5b3 1px, transparent 1px);
-      background-size: 20px 20px;
+      overflow-x: hidden;
     }
 
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px;
-      padding: 60px 20px;
-      max-width: 1300px;
-      margin: 0 auto;
+    h1, h2, h3 {
+      font-family: 'Nanum Myeongjo', serif;
+      color: var(--dark-olive);
     }
 
-    .app-screen {
-      width: 360px;
-      height: 720px;
-      background-color: var(--bg-screen);
-      border-radius: 40px;
-      box-shadow: 0 20px 50px rgba(44, 30, 22, 0.25);
-      border: 2px solid #c8b9a6;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .app-header {
-      padding: 25px 20px 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px double var(--accent);
-      background-color: var(--bg-screen);
-    }
-    .app-header h2 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin: 0;
-      letter-spacing: 2px;
-      color: var(--text-main);
-    }
-    .icon-btn {
-      font-size: 1.2rem;
-      cursor: pointer;
-      color: var(--text-main);
-      transition: color 0.3s, transform 0.3s;
-    }
-    .icon-btn:hover {
-      color: var(--accent-rose);
-      transform: scale(1.1);
-    }
-
-    .app-main {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .app-main::-webkit-scrollbar {
-      width: 4px;
-    }
-    .app-main::-webkit-scrollbar-thumb {
-      background-color: var(--accent);
-      border-radius: 2px;
-    }
-
-    .intro-text {
-      margin-bottom: 25px;
-    }
-    .intro-text h3 {
-      font-size: 1.5rem;
-      font-weight: 400;
-      line-height: 1.4;
-      margin: 0 0 10px 0;
-      letter-spacing: 1px;
-    }
-    .intro-text p {
-      font-size: 0.85rem;
-      color: var(--text-sub);
-      margin: 0;
-      line-height: 1.6;
-    }
-
-    /* 🌟 구글 검색 연동을 위해 수정된 검색창 스타일 */
-    .search-box {
-      border: 1px solid #c8b9a6;
-      border-radius: 8px;
-      padding: 10px 15px;
-      margin-bottom: 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    /* 1. 상단 히어로 섹션 (둥근 아치형 하단) */
+    .hero-section {
       background-color: #fff;
+      border-radius: 0 0 50% 50% / 0 0 100px 100px; /* 레퍼런스처럼 밑을 둥글게 */
+      padding: 60px 20px 100px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      margin-bottom: 80px;
+    }
+    
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--text-sub);
+      margin-bottom: 40px;
+    }
+
+    /* 구글 검색창 (둥근 스타일) */
+    .search-box {
+      background: #fff;
+      border: 2px solid var(--dark-olive);
+      border-radius: 40px;
+      display: flex;
+      max-width: 500px;
+      margin: 0 auto 30px;
+      padding: 10px 25px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
     .search-box input {
       border: none;
       outline: none;
       background: transparent;
       width: 100%;
-      font-size: 0.85rem;
-      color: var(--text-main);
+      font-size: 1rem;
       font-family: inherit;
-    }
-    .search-box input::placeholder {
-      color: var(--text-sub);
     }
     .search-box button {
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 1rem;
-      padding: 0;
-      color: var(--text-main);
-      transition: transform 0.2s;
-    }
-    .search-box button:hover {
-      transform: scale(1.2);
+      font-size: 1.2rem;
+      color: var(--dark-olive);
     }
 
-    .filter-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 25px;
-      padding: 0;
-      list-style: none;
+    /* 2. 메뉴 섹션 (타원형 이미지 프레임) */
+    .menu-section {
+      max-width: 1000px;
+      margin: 0 auto 100px;
+      text-align: center;
+      padding: 0 20px;
     }
-    .filter-tabs li {
-      padding: 6px 16px;
-      font-size: 0.8rem;
-      border: 1px solid #c8b9a6;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      background-color: #fff;
-    }
-    .filter-tabs li.active, .filter-tabs li:hover {
-      background-color: var(--text-main);
-      color: var(--bg-screen);
-      border-color: var(--text-main);
-    }
-
-    .magazine-card {
-      background: #fff;
-      border: 1px solid #e8e1d5;
-      border-radius: 4px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    .section-label {
+      display: inline-block;
+      background-color: var(--light-green);
+      color: var(--dark-olive);
+      padding: 5px 15px;
+      font-weight: 700;
+      border-radius: 20px;
       margin-bottom: 20px;
     }
-    .magazine-card img {
-      width: 100%;
-      display: block;
-      filter: sepia(15%);
+    
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      list-style: none;
+      padding: 0;
+      margin-bottom: 50px;
     }
-    .card-body {
-      padding: 20px;
+    .filter-tabs li {
+      font-weight: 500;
+      color: var(--text-sub);
+      cursor: pointer;
+      position: relative;
     }
-    .card-body h4 {
-      font-size: 1.1rem;
-      margin: 0 0 10px 0;
+    .filter-tabs li.active {
+      color: var(--dark-olive);
       font-weight: 700;
     }
-    .card-body p {
-      font-size: 0.8rem;
-      color: var(--text-sub);
-      margin: 0;
-      line-height: 1.6;
+    .filter-tabs li.active::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--dark-olive);
     }
 
-    .toggle-container {
+    .menu-gallery {
       display: flex;
-      border: 1px solid #c8b9a6;
-      border-radius: 4px;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 30px;
+    }
+    .menu-item {
+      text-align: center;
+    }
+    /* 타원형 이미지 컨테이너 */
+    .menu-img-wrapper {
+      width: 180px;
+      height: 260px;
+      border-radius: 90px;
       overflow: hidden;
-      margin-bottom: 25px;
+      margin-bottom: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      border: 5px solid #fff;
     }
-    .toggle-btn {
-      flex: 1;
-      padding: 10px;
-      background: #fff;
-      border: none;
-      font-family: inherit;
-      font-size: 0.85rem;
-      cursor: pointer;
-      color: var(--text-sub);
-      transition: 0.3s;
+    .menu-img-wrapper.large {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%; /* 가운데는 동그랗게 */
     }
-    .toggle-btn.active, .toggle-btn:hover {
-      background-color: var(--accent);
-      color: #fff;
+    .menu-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    .vr-wrapper {
+    /* 3. 공간 이야기 (ABOUT - 아치형 VR 프레임) */
+    .about-section {
+      max-width: 1000px;
+      margin: 0 auto 100px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 50px;
+    }
+    .about-text {
+      flex: 1;
+    }
+    .about-text h3 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .vr-container {
+      flex: 1;
+      border-radius: 150px 150px 0 0; /* 위쪽만 둥근 아치형 */
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+      border: 8px solid #fff;
+      height: 450px;
       position: relative;
-      margin-bottom: 25px;
     }
     #panorama {
       width: 100%;
-      height: 280px;
-      border-radius: 4px;
-      border: 1px solid #c8b9a6;
+      height: 100%;
     }
 
-    .list-item {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      background: #fff;
-      padding: 12px;
-      border: 1px solid #e8e1d5;
-      border-radius: 4px;
-      margin-bottom: 15px;
-    }
-    .list-item img {
-      width: 70px;
-      height: 70px;
-      object-fit: cover;
-      border-radius: 2px;
-      filter: sepia(20%);
-    }
-    .list-item-text {
-      flex: 1;
-    }
-    .list-item-text h4 {
-      font-size: 0.95rem;
-      margin: 0 0 5px 0;
-    }
-    .list-item-text p {
-      font-size: 0.75rem;
-      color: var(--text-sub);
-      margin: 0;
-      line-height: 1.4;
-    }
-
-    .antique-frame {
-      border: 1px solid #c8b9a6;
-      padding: 6px;
-      background: #fff;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
-    .antique-frame-inner {
-      border: 1px solid var(--accent);
-      position: relative;
-    }
-    .antique-frame img {
-      width: 100%;
-      display: block;
-      filter: sepia(30%) contrast(105%);
-    }
-
-    .action-btn {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      background-color: var(--text-main);
-      color: var(--bg-screen);
-      border: none;
-      font-family: inherit;
-      font-size: 0.9rem;
-      letter-spacing: 2px;
-      cursor: pointer;
-      text-align: center;
+    /* 공통 버튼 스타일 */
+    .view-more-btn {
+      display: inline-block;
+      padding: 10px 30px;
+      border: 1px solid var(--dark-olive);
+      border-radius: 30px;
+      color: var(--dark-olive);
       text-decoration: none;
-      box-sizing: border-box;
-      margin-top: auto;
-      transition: background-color 0.3s;
+      font-weight: 500;
+      margin-top: 20px;
+      transition: all 0.3s;
     }
-    .action-btn:hover {
-      background-color: var(--accent);
+    .view-more-btn:hover {
+      background-color: var(--dark-olive);
+      color: #fff;
     }
 
-    .app-footer {
-      height: 60px;
-      border-top: 1px solid #e8e1d5;
+    /* 4. 다크 올리브 섹션 (기억의 보관소 & 인스타그램) */
+    .dark-section {
+      background-color: var(--dark-olive);
+      color: #fff;
+      padding: 80px 20px;
+      text-align: center;
+    }
+    .dark-section h2 {
+      color: #fff;
+    }
+    .dark-section .section-label {
+      background-color: transparent;
+      border: 1px solid #fff;
+      color: #fff;
+    }
+    
+    .archive-grid {
       display: flex;
-      justify-content: space-around;
-      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1000px;
+      margin: 40px auto;
+    }
+    .archive-item {
+      width: 200px;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+    .archive-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: sepia(30%);
+      transition: transform 0.3s;
+    }
+    .archive-item:hover img {
+      transform: scale(1.1);
+    }
+    .dark-section .view-more-btn {
+      border-color: #fff;
+      color: #fff;
+    }
+    .dark-section .view-more-btn:hover {
       background-color: #fff;
-    }
-    .footer-tab {
-      font-size: 1.1rem;
-      color: #9c8c82;
-      cursor: pointer;
-      transition: color 0.3s;
-    }
-    .footer-tab.active, .footer-tab:hover {
-      color: var(--text-main);
+      color: var(--dark-olive);
     }
 
+    /* 반응형 레이아웃 */
     @media (max-width: 768px) {
-      .container { padding: 20px 10px; gap: 30px; }
+      .menu-gallery { flex-wrap: wrap; }
+      .about-section { flex-direction: column; }
+      .vr-container { width: 100%; }
+      .archive-grid { flex-wrap: wrap; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
+  <div class="hero-section">
+    <h1 class="hero-title">천년의 기다림, 벚꽃 카페</h1>
+    <p class="hero-subtitle">당신의 피부를 위한 고즈넉한 휴식, 1000 Year Cherry Blossom Dream</p>
     
-    <div class="app-screen">
-      <div class="app-header">
-        <span class="icon-btn">🌿</span>
-        <h2>PROLOGUE</h2>
-        <span class="icon-btn">☰</span>
-      </div>
-      <div class="app-main">
-        <div class="intro-text">
-          <h3>당신의 피부를 위한,<br>천년의 기다림</h3>
-          <p>1000 Year Cherry Blossom Dream</p>
-        </div>
-
-        <form action="https://www.google.com/search" method="GET" target="_blank" class="search-box">
-          <input type="text" name="q" placeholder="경주 황리단길 한옥 카페 검색" required>
-          <button type="submit">🔍</button>
-        </form>
-
-        <ul class="filter-tabs">
-          <li class="active">전체</li>
-          <li>공간</li>
-          <li>메뉴</li>
-        </ul>
-        <div class="magazine-card">
-          <img src="image.jpg" alt="카페 전경">
-          <div class="card-body">
-            <h4>봄날의 쉼표</h4>
-            <p>복잡한 일상을 뒤로하고 한옥의 정취를 느껴보세요. 창밖으로 흩날리는 벚꽃잎과 함께, 정성스럽게 내린 커피 한 잔이 당신의 하루에 작은 위로가 됩니다.</p>
-          </div>
-        </div>
-      </div>
-      <div class="app-footer">
-        <span class="footer-tab active">🏠</span>
-        <span class="footer-tab">👁️</span>
-        <span class="footer-tab">🌸</span>
-        <span class="footer-tab">📜</span>
-      </div>
+    <form action="https://www.google.com/search" method="GET" target="_blank" class="search-box">
+      <input type="text" name="q" placeholder="경주 황리단길 한옥 카페 검색" required>
+      <button type="submit">🔍</button>
+    </form>
+    
+    <div style="max-width: 800px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+      <img src="image.jpg" alt="카페 전경" style="width: 100%; display: block;">
     </div>
+  </div>
 
-    <div class="app-screen">
-      <div class="app-header">
-        <span class="icon-btn">←</span>
-        <h2>SPACE STORY</h2>
-        <span class="icon-btn">⚙️</span>
-      </div>
-      <div class="app-main">
-        <div class="intro-text">
-          <h3>공간을 미리 거닐다</h3>
-          <p>시간이 멈춘 듯한 툇마루와 서까래 아래의 여유</p>
-        </div>
-        <div class="toggle-container">
-          <button class="toggle-btn active">본채 내부</button>
-          <button class="toggle-btn">마당 정원</button>
-        </div>
-        
-        <div class="vr-wrapper">
-          <div id="panorama"></div>
-        </div>
+  <div class="menu-section">
+    <div class="section-label">CHERRY BLOSSOM 메뉴</div>
+    
+    <ul class="filter-tabs">
+      <li class="active">시그니처</li>
+      <li>커피</li>
+      <li>음료</li>
+      <li>디저트</li>
+    </ul>
 
-        <div class="card-body" style="padding: 10px 0; margin-bottom: 20px;">
-          <p style="font-size: 0.8rem; color: var(--text-sub); line-height: 1.6;">
-            화면을 마우스로 드래그하면 한옥 카페 내부의 고즈넉한 인테리어를 360도 가상 가상현실(VR)로 생생하게 둘러보실 수 있습니다.
-          </p>
-        </div>
-        
-        <a href="forest.html" class="action-btn">비밀의 방 입장하기</a>
-      </div>
-      <div class="app-footer">
-        <span class="footer-tab">🏠</span>
-        <span class="footer-tab active">👁️</span>
-        <span class="footer-tab">🌸</span>
-        <span class="footer-tab">📜</span>
-      </div>
-    </div>
-
-    <div class="app-screen">
-      <div class="app-header">
-        <span class="icon-btn">←</span>
-        <h2>MENU & ARCHIVE</h2>
-        <span class="icon-btn">⏳</span>
-      </div>
-      <div class="app-main">
-        <div class="intro-text" style="margin-bottom: 15px;">
-          <h3>정성을 담은 기록</h3>
-          <p>꽃이 피고 지는 순간의 아름다움을 담아냅니다</p>
-        </div>
-
-        <div class="list-item">
+    <div class="menu-gallery">
+      <div class="menu-item">
+        <div class="menu-img-wrapper large">
           <img src="image1.jpg" alt="벚꽃 라떼">
-          <div class="list-item-text">
-            <h4 style="color: var(--accent-rose); font-weight: 700;">천년의 기다림, 벚꽃 라떼</h4>
-            <p>은은한 벚꽃 향과 부드러운 우유가 어우러진 크림 음료</p>
-          </div>
         </div>
-        <div class="list-item">
-          <img src="image2.png" alt="수제 디저트">
-          <div class="list-item-text">
-            <h4>정성을 굽는 시간</h4>
-            <p>매일 아침 매장에서 직접 구워내는 빈티지 구움과자</p>
-          </div>
-        </div>
-
-        <div class="antique-frame" style="margin-top: 10px;">
-          <div class="antique-frame-inner">
-            <img src="image3.jpg" alt="앤틱 3">
-          </div>
-        </div>
-        <div class="antique-frame">
-          <div class="antique-frame-inner">
-            <img src="image4.jpg" alt="앤틱 4">
-          </div>
-        </div>
-        <div class="antique-frame">
-          <div class="antique-frame-inner">
-            <img src="image5.jpg" alt="앤틱 5">
-          </div>
-        </div>
-
-        <a href="https://instagram.com/mehwa_uk" target="_blank" class="action-btn" style="margin-top: 10px;">Instagram 연결</a>
+        <p style="font-weight: 700;">[시그니처] 벚꽃 라떼</p>
       </div>
-      <div class="app-footer">
-        <span class="footer-tab">🏠</span>
-        <span class="footer-tab">👁️</span>
-        <span class="footer-tab active">🌸</span>
-        <span class="footer-tab">📜</span>
+      <div class="menu-item">
+        <div class="menu-img-wrapper">
+          <img src="image2.png" alt="수제 디저트">
+        </div>
+        <p style="font-weight: 700;">수제 구움과자</p>
       </div>
     </div>
+  </div>
 
+  <div class="about-section">
+    <div class="vr-container">
+      <div id="panorama"></div>
+    </div>
+    <div class="about-text">
+      <div class="section-label">ABOUT SPACE</div>
+      <h3>봄날의 쉼표,<br>공간을 미리 거닐다</h3>
+      <p style="color: var(--text-sub); line-height: 1.8; margin-bottom: 30px;">
+        복잡한 일상을 뒤로하고 한옥의 정취를 느껴보세요.<br>
+        창밖으로 흩날리는 벚꽃잎과 함께, 시간이 멈춘 듯한 툇마루와 서까래 아래의 여유를 360도 가상현실(VR)로 생생하게 둘러보실 수 있습니다.
+      </p>
+      
+      <a href="forest.html" class="view-more-btn">비밀의 방 (숲속) 입장하기 →</a>
+    </div>
+  </div>
+
+  <div class="dark-section">
+    <div class="section-label" style="margin-bottom: 20px;">ARCHIVE & INSTAGRAM</div>
+    <h2>정성을 담은 기록</h2>
+    <p style="opacity: 0.8; margin-bottom: 40px;">꽃이 피고 지는 순간의 아름다움을 담아냅니다</p>
+
+    <div class="archive-grid">
+      <div class="archive-item"><img src="image3.jpg" alt="기록 1"></div>
+      <div class="archive-item"><img src="image4.jpg" alt="기록 2"></div>
+      <div class="archive-item"><img src="image5.jpg" alt="기록 3"></div>
+    </div>
+
+    <a href="https://instagram.com/mehwa_uk" target="_blank" class="view-more-btn">INSTAGRAM VIEW MORE →</a>
   </div>
 
   <script>
+    // VR 파노라마 초기화
     pannellum.viewer('panorama', {
       "type": "equirectangular",
       "panorama": "vr.jpg?v=2",
