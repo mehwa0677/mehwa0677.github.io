@@ -12,11 +12,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
-    /* 레퍼런스 디자인 컬러 팔레트 */
     :root {
-      --bg-cream: #f9f7f1; /* 따뜻한 크림색 바탕 */
-      --dark-olive: #3c4a38; /* 짙은 올리브 그린 */
-      --light-green: #d2dfb9; /* 형광빛 도는 연두색 포인트 */
+      --bg-cream: #f9f7f1;
+      --dark-olive: #3c4a38;
+      --light-green: #d2dfb9;
       --text-main: #222;
       --text-sub: #666;
     }
@@ -35,10 +34,9 @@
       color: var(--dark-olive);
     }
 
-    /* 1. 상단 히어로 섹션 (둥근 아치형 하단) */
     .hero-section {
       background-color: #fff;
-      border-radius: 0 0 50% 50% / 0 0 100px 100px; /* 레퍼런스처럼 밑을 둥글게 */
+      border-radius: 0 0 50% 50% / 0 0 100px 100px;
       padding: 60px 20px 100px;
       text-align: center;
       position: relative;
@@ -58,7 +56,6 @@
       margin-bottom: 40px;
     }
 
-    /* 구글 검색창 (둥근 스타일) */
     .search-box {
       background: #fff;
       border: 2px solid var(--dark-olive);
@@ -85,7 +82,6 @@
       color: var(--dark-olive);
     }
 
-    /* 2. 메뉴 섹션 (타원형 이미지 프레임) */
     .menu-section {
       max-width: 1000px;
       margin: 0 auto 100px;
@@ -134,33 +130,57 @@
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      gap: 30px;
+      gap: 50px;
     }
     .menu-item {
       text-align: center;
     }
-    /* 타원형 이미지 컨테이너 */
+
+    /* 🌟 자연스러운 이미지 전환(크로스페이드)을 위한 스타일 조절 */
     .menu-img-wrapper {
-      width: 180px;
-      height: 260px;
-      border-radius: 90px;
-      overflow: hidden;
+      width: 200px;
+      height: 280px;
+      position: relative; /* 이미지 겹치기용 */
       margin-bottom: 15px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
       border: 5px solid #fff;
+      cursor: pointer;
+      background-color: #fff;
     }
-    .menu-img-wrapper.large {
+    
+    /* 아치형/타원형 프레임 유지 */
+    .menu-img-wrapper.type-arch {
+      border-radius: 100px 100px 0 0;
+    }
+    .menu-img-wrapper.type-circle {
       width: 240px;
       height: 240px;
-      border-radius: 50%; /* 가운데는 동그랗게 */
+      border-radius: 50%;
     }
+
     .menu-img-wrapper img {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* 고급스러운 가속도 효과 */
     }
 
-    /* 3. 공간 이야기 (ABOUT - 아치형 VR 프레임) */
+    /* 처음에 뒤에 숨겨둘 이미지 설정 */
+    .img-back {
+      opacity: 0;
+    }
+
+    /* 클릭되었을 때(active 클래스가 붙을 때) 투명도 교차 교환 */
+    .menu-img-wrapper.active .img-front {
+      opacity: 0;
+    }
+    .menu-img-wrapper.active .img-back {
+      opacity: 1;
+    }
+
     .about-section {
       max-width: 1000px;
       margin: 0 auto 100px;
@@ -178,7 +198,7 @@
     }
     .vr-container {
       flex: 1;
-      border-radius: 150px 150px 0 0; /* 위쪽만 둥근 아치형 */
+      border-radius: 150px 150px 0 0;
       overflow: hidden;
       box-shadow: 0 15px 30px rgba(0,0,0,0.15);
       border: 8px solid #fff;
@@ -190,7 +210,6 @@
       height: 100%;
     }
 
-    /* 공통 버튼 스타일 */
     .view-more-btn {
       display: inline-block;
       padding: 10px 30px;
@@ -207,7 +226,6 @@
       color: #fff;
     }
 
-    /* 4. 다크 올리브 섹션 (기억의 보관소 & 인스타그램) */
     .dark-section {
       background-color: var(--dark-olive);
       color: #fff;
@@ -240,7 +258,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: sepia(30%);
+      filter: sepia(15%);
       transition: transform 0.3s;
     }
     .archive-item:hover img {
@@ -255,9 +273,8 @@
       color: var(--dark-olive);
     }
 
-    /* 반응형 레이아웃 */
     @media (max-width: 768px) {
-      .menu-gallery { flex-wrap: wrap; }
+      .menu-gallery { flex-wrap: wrap; justify-content: center; gap: 30px; }
       .about-section { flex-direction: column; }
       .vr-container { width: 100%; }
       .archive-grid { flex-wrap: wrap; }
@@ -282,7 +299,6 @@
 
   <div class="menu-section">
     <div class="section-label">CHERRY BLOSSOM 메뉴</div>
-    
     <ul class="filter-tabs">
       <li class="active">시그니처</li>
       <li>커피</li>
@@ -292,16 +308,21 @@
 
     <div class="menu-gallery">
       <div class="menu-item">
-        <div class="menu-img-wrapper large">
-          <img src="image1.jpg" alt="벚꽃 라떼">
+        <div class="menu-img-wrapper type-arch" onclick="toggleFade(this)">
+          <img src="image1.jpg" class="img-front" alt="벚꽃 라떼 앞">
+          <img src="image3.jpg" class="img-back" alt="벚꽃 라떼 뒤">
         </div>
-        <p style="font-weight: 700;">[시그니처] 벚꽃 라떼</p>
+        <p style="font-weight: 700; margin-top: 10px;">[시그니처] 벚꽃 라떼</p>
+        <p style="font-size: 0.85rem; color: var(--text-sub); margin: 0;">(사진을 클릭해 보세요)</p>
       </div>
+
       <div class="menu-item">
-        <div class="menu-img-wrapper">
-          <img src="image2.png" alt="수제 디저트">
+        <div class="menu-img-wrapper type-circle" onclick="toggleFade(this)">
+          <img src="image2.png" class="img-front" alt="수제 디저트 앞">
+          <img src="image4.jpg" class="img-back" alt="수제 디저트 뒤">
         </div>
-        <p style="font-weight: 700;">수제 구움과자</p>
+        <p style="font-weight: 700; margin-top: 10px;">수제 구움과자</p>
+        <p style="font-size: 0.85rem; color: var(--text-sub); margin: 0;">(사진을 클릭해 보세요)</p>
       </div>
     </div>
   </div>
@@ -317,7 +338,6 @@
         복잡한 일상을 뒤로하고 한옥의 정취를 느껴보세요.<br>
         창밖으로 흩날리는 벚꽃잎과 함께, 시간이 멈춘 듯한 툇마루와 서까래 아래의 여유를 360도 가상현실(VR)로 생생하게 둘러보실 수 있습니다.
       </p>
-      
       <a href="forest.html" class="view-more-btn">비밀의 방 (숲속) 입장하기 →</a>
     </div>
   </div>
@@ -337,7 +357,11 @@
   </div>
 
   <script>
-    // VR 파노라마 초기화
+    // 🌟 JavaScript 스위치 함수 추가
+    function toggleFade(element) {
+      element.classList.toggle('active');
+    }
+
     pannellum.viewer('panorama', {
       "type": "equirectangular",
       "panorama": "vr.jpg?v=2",
