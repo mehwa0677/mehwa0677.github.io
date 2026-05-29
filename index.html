@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <title>천년의 기다림, 벚꽃 카페</title>
   
+  <!-- VR 파노라마 스크립트 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
+  <!-- 웹 폰트 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -29,7 +31,7 @@
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      padding-top: 70px;
+      /* 헤더가 투명해질 때 자연스럽도록 패딩 제거 */
     }
 
     h1, h2, h3 {
@@ -37,14 +39,15 @@
       color: var(--dark-olive);
     }
 
-    /* 1. 상단 고정 네비게이션 */
+    /* 🌟 1. 스크롤 반응형 투명 헤더 */
     .header-gnb {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 70px;
-      background-color: #fff;
+      /* 자바스크립트로 배경색이 제어됩니다 */
+      background-color: rgba(255, 255, 255, 1);
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       display: flex;
       justify-content: space-between;
@@ -52,6 +55,7 @@
       padding: 0 50px;
       z-index: 1000;
       box-sizing: border-box;
+      transition: background-color 0.1s, box-shadow 0.1s; /* 부드러운 전환 */
     }
     .header-logo {
       font-family: 'Nanum Myeongjo', serif;
@@ -59,6 +63,8 @@
       font-weight: 800;
       color: var(--dark-olive);
       text-decoration: none;
+      /* 헤더가 투명해질 때 글씨가 잘 보이도록 그림자 추가 */
+      text-shadow: 0 0 10px rgba(255,255,255,0.8); 
     }
     .gnb-menu {
       display: flex;
@@ -73,16 +79,17 @@
       font-weight: 500;
       font-size: 1.05rem;
       transition: color 0.3s;
+      text-shadow: 0 0 10px rgba(255,255,255,0.8);
     }
     .gnb-menu li a:hover {
       color: var(--point-color);
     }
 
-    /* 🌟 2. 메인 배너 슬라이드 영역 (화살표 추가) */
+    /* 2. 메인 배너 슬라이드 */
     .hero-slider-wrap {
       position: relative;
       width: 100%;
-      height: 500px;
+      height: 600px; /* 헤더 공간만큼 높이 연장 */
       overflow: hidden;
       background-color: var(--dark-olive);
     }
@@ -110,7 +117,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.5; /* 글씨 가독성을 위해 어둡게 */
+      opacity: 0.5;
       z-index: 1;
     }
     .hero-content {
@@ -126,7 +133,6 @@
       text-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
     
-    /* 화살표 버튼 디자인 */
     .slider-arrow {
       position: absolute;
       top: 50%;
@@ -140,13 +146,10 @@
       z-index: 10;
       transition: background 0.3s;
     }
-    .slider-arrow:hover {
-      background: var(--dark-olive);
-    }
+    .slider-arrow:hover { background: var(--dark-olive); }
     .arrow-left { left: 0; }
     .arrow-right { right: 0; }
 
-    /* 하단 버튼 네비게이션 (점 표시) */
     .slider-dots {
       position: absolute;
       bottom: 20px;
@@ -305,16 +308,15 @@
       color: var(--text-sub);
     }
 
-    /* 🌟 5. 공간 안내 (VR 창 강제 고정) */
+    /* 5. 공간 안내 (VR) */
     .space-section {
       background-color: #fff;
-      padding: 80px 0;
+      padding: 80px 0 0 0;
       border-top: 1px solid var(--border-color);
     }
     .vr-box {
       max-width: 1000px;
       margin: 0 auto;
-      /* 박스가 찌그러지지 않도록 최소 높이를 강제합니다 */
       min-height: 450px; 
       border: 5px solid var(--border-color);
       border-radius: 12px;
@@ -323,28 +325,56 @@
     }
     #panorama {
       width: 100%;
-      height: 450px; /* VR 자체의 높이도 명시적으로 지정 */
-    }
-    .btn-wrap {
-      text-align: center;
-      margin-top: 40px;
-    }
-    .btn-solid {
-      display: inline-block;
-      background-color: var(--dark-olive);
-      color: #fff;
-      padding: 15px 40px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 30px;
-      transition: 0.3s;
-    }
-    .btn-solid:hover {
-      background-color: var(--point-color);
+      height: 450px;
     }
 
-    /* 6. 우측 플로팅 퀵 메뉴 */
+    /* 🌟 6. Tach 스타일 - 무한 롤링 갤러리 (Marquee) */
+    .marquee-wrapper {
+      width: 100%;
+      background-color: #fff;
+      padding: 80px 0;
+      overflow: hidden;
+      display: flex; /* 트랙을 가로로 이어붙이기 위함 */
+    }
+    
+    .marquee-track {
+      display: flex;
+      /* 25초 동안 왼쪽으로 이동하는 애니메이션 */
+      animation: scrollSideways 25s linear infinite;
+    }
+
+    /* 🌟 7. 호버 시 일시정지 효과 */
+    .marquee-wrapper:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    .marquee-item {
+      width: 320px;
+      height: 420px;
+      margin-right: 30px;
+      flex-shrink: 0; /* 사진이 줄어들지 않도록 고정 */
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+      position: relative;
+    }
+    .marquee-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .marquee-item:hover img {
+      transform: scale(1.05); /* 사진에 올리면 살짝 확대되는 디테일 추가 */
+    }
+
+    /* 롤링 애니메이션 키프레임 */
+    @keyframes scrollSideways {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* 우측 플로팅 퀵 메뉴 */
     .quick-menu {
       position: fixed;
       right: 30px;
@@ -397,7 +427,8 @@
 </head>
 <body>
 
-  <header class="header-gnb">
+  <!-- 상단 네비게이션 (스크롤 시 투명해지는 대상) -->
+  <header class="header-gnb" id="main-header">
     <a href="#" class="header-logo">벚꽃 카페</a>
     <ul class="gnb-menu">
       <li><a href="#menu-section">메뉴 소개</a></li>
@@ -406,8 +437,8 @@
     </ul>
   </header>
 
+  <!-- 메인 배너 슬라이드 -->
   <div class="hero-slider-wrap">
-    
     <div class="hero-slide active">
       <img src="image.jpg" alt="카페 전경">
       <div class="hero-content">
@@ -415,7 +446,6 @@
         <p>당신의 피부를 위한 고즈넉한 휴식</p>
       </div>
     </div>
-    
     <div class="hero-slide">
       <img src="image6.jpg" alt="비밀의 숲">
       <div class="hero-content">
@@ -423,7 +453,6 @@
         <p>바람 소리만 머무는 프라이빗 룸</p>
       </div>
     </div>
-    
     <div class="hero-slide">
       <img src="image5.jpg" alt="오래된 서랍">
       <div class="hero-content">
@@ -431,10 +460,8 @@
         <p>오랜 시간이 머무는 앤틱 갤러리</p>
       </div>
     </div>
-
     <button class="slider-arrow arrow-left" onclick="moveSlide(-1)">&#10094;</button>
     <button class="slider-arrow arrow-right" onclick="moveSlide(1)">&#10095;</button>
-
     <div class="slider-dots">
       <span class="dot active" onclick="currentSlide(1)"></span>
       <span class="dot" onclick="currentSlide(2)"></span>
@@ -442,6 +469,7 @@
     </div>
   </div>
 
+  <!-- 검색 영역 -->
   <div class="search-section">
     <form action="https://www.google.com/search" method="GET" target="_blank" class="search-box">
       <input type="text" name="q" placeholder="경주 황리단길 한옥 카페 검색 (구글 연동)" required>
@@ -449,6 +477,7 @@
     </form>
   </div>
 
+  <!-- 메뉴 영역 -->
   <div id="menu-section" class="section-container">
     <div class="section-header">
       <h2>CHERRY BLOSSOM MENU</h2>
@@ -470,10 +499,9 @@
         <div class="card-info">
           <span class="card-tag">NEW</span>
           <div class="card-title">벚꽃 라떼</div>
-          <div class="card-desc">은은한 벚꽃 향과 부드러운 우유의 조화 (사진 클릭)</div>
+          <div class="card-desc">은은한 벚꽃 향과 부드러운 우유의 조화</div>
         </div>
       </div>
-
       <div class="card">
         <div class="card-img-box" onclick="toggleFade(this)">
           <img src="image2.png" class="img-front" alt="수제 디저트 앞">
@@ -482,10 +510,9 @@
         <div class="card-info">
           <span class="card-tag" style="background-color: var(--dark-olive);">BEST</span>
           <div class="card-title">수제 구움과자</div>
-          <div class="card-desc">매일 아침 매장에서 직접 굽는 디저트 (사진 클릭)</div>
+          <div class="card-desc">매일 아침 매장에서 직접 굽는 디저트</div>
         </div>
       </div>
-      
       <div class="card">
         <div class="card-img-box">
           <img src="image5.jpg" alt="핸드드립" style="filter: sepia(20%);">
@@ -499,23 +526,40 @@
     </div>
   </div>
 
+  <!-- 공간 안내 (VR) -->
   <div id="space-section" class="space-section">
     <div class="section-container" style="margin-top: 0; margin-bottom: 0;">
       <div class="section-header">
         <h2>SPACE & VR</h2>
         <p>시간이 멈춘 듯한 툇마루와 서까래 아래의 여유를 360도 가상현실로 체험하세요.</p>
       </div>
-
       <div class="vr-box">
         <div id="panorama"></div>
-      </div>
-
-      <div class="btn-wrap">
-        <a href="forest.html" class="btn-solid">비밀의 방 (숲속) 예약하기</a>
       </div>
     </div>
   </div>
 
+  <!-- 🌟 무한 롤링 갤러리 (Marquee 애니메이션) -->
+  <div class="marquee-wrapper">
+    <!-- 무한 루프를 위해 동일한 트랙을 2개 나란히 배치합니다 -->
+    <div class="marquee-track">
+      <div class="marquee-item"><img src="image3.jpg" alt="기록 1"></div>
+      <div class="marquee-item"><img src="image4.jpg" alt="기록 2"></div>
+      <div class="marquee-item"><img src="image5.jpg" alt="기록 3"></div>
+      <div class="marquee-item"><img src="image6.jpg" alt="숲속 1"></div>
+      <div class="marquee-item"><img src="image7.jpg" alt="숲속 2"></div>
+    </div>
+    <!-- 똑같은 이미지 세트를 한 번 더 반복하여 빈 공간 없이 이어지게 만듭니다 -->
+    <div class="marquee-track">
+      <div class="marquee-item"><img src="image3.jpg" alt="기록 1"></div>
+      <div class="marquee-item"><img src="image4.jpg" alt="기록 2"></div>
+      <div class="marquee-item"><img src="image5.jpg" alt="기록 3"></div>
+      <div class="marquee-item"><img src="image6.jpg" alt="숲속 1"></div>
+      <div class="marquee-item"><img src="image7.jpg" alt="숲속 2"></div>
+    </div>
+  </div>
+
+  <!-- 우측 플로팅 퀵 메뉴 -->
   <div class="quick-menu">
     <a href="#menu-section" class="quick-btn">
       <i>📋</i>
@@ -537,43 +581,43 @@
   </footer>
 
   <script>
-    // 🌟 1. 메인 배너 슬라이드 (화살표 넘기기) 기능
+    // 🌟 1. 헤더 스크롤 투명도 조절 스크립트
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+      // 스크롤을 0부터 300px까지 내리는 동안 투명도(alpha)가 1에서 0으로 변합니다.
+      let scrollPos = window.scrollY;
+      let alpha = 1 - (scrollPos / 300);
+      
+      if (alpha < 0) alpha = 0; // 최소 투명도는 0 (완전 투명)
+      
+      // 스크롤 시 하얀 배경색을 점차 투명하게 변경
+      header.style.backgroundColor = `rgba(255, 255, 255, ${alpha})`;
+      header.style.boxShadow = `0 2px 10px rgba(0,0,0, ${alpha * 0.05})`;
+    });
+
+    // 배너 슬라이드 스크립트
     let slideIndex = 1;
     showSlides(slideIndex);
-
-    // 화살표를 누를 때 실행되는 함수
-    function moveSlide(n) {
-      showSlides(slideIndex += n);
-    }
-
-    // 하단 점(dot)을 누를 때 실행되는 함수
-    function currentSlide(n) {
-      showSlides(slideIndex = n);
-    }
-
-    // 슬라이드 화면을 바꿔주는 핵심 로직
+    function moveSlide(n) { showSlides(slideIndex += n); }
+    function currentSlide(n) { showSlides(slideIndex = n); }
     function showSlides(n) {
       let i;
       let slides = document.getElementsByClassName("hero-slide");
       let dots = document.getElementsByClassName("dot");
       if (n > slides.length) {slideIndex = 1}    
       if (n < 1) {slideIndex = slides.length}
-      for (i = 0; i < slides.length; i++) {
-        slides[i].classList.remove("active");  
-      }
-      for (i = 0; i < dots.length; i++) {
-        dots[i].classList.remove("active");
-      }
+      for (i = 0; i < slides.length; i++) { slides[i].classList.remove("active"); }
+      for (i = 0; i < dots.length; i++) { dots[i].classList.remove("active"); }
       slides[slideIndex-1].classList.add("active");  
       dots[slideIndex-1].classList.add("active");
     }
 
-    // 2. 이미지 크로스페이드 (클릭 시 사진 변경) 기능
+    // 크로스페이드 스크립트
     function toggleFade(element) {
       element.classList.toggle('active');
     }
 
-    // 3. VR 파노라마
+    // VR 파노라마
     pannellum.viewer('panorama', {
       "type": "equirectangular",
       "panorama": "vr.jpg?v=2",
