@@ -16,7 +16,7 @@
       --bg-cream: #f9f7f1;
       --dark-olive: #3c4a38;
       --light-olive: #5b6e56;
-      --point-color: #d6a2a8; /* 벚꽃 핑크 */
+      --point-color: #d6a2a8;
       --text-main: #222;
       --text-sub: #666;
       --border-color: #e0dcd0;
@@ -29,7 +29,7 @@
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      padding-top: 70px; /* 고정 헤더 높이만큼 여백 */
+      padding-top: 70px;
     }
 
     h1, h2, h3 {
@@ -37,7 +37,7 @@
       color: var(--dark-olive);
     }
 
-    /* 1. 상단 고정 네비게이션 (GNB) - CU 스타일 */
+    /* 1. 상단 고정 네비게이션 */
     .header-gnb {
       position: fixed;
       top: 0;
@@ -78,40 +78,98 @@
       color: var(--point-color);
     }
 
-    /* 2. 메인 배너 영역 */
-    .hero-banner {
-      width: 100%;
-      height: 450px;
-      background-color: var(--dark-olive);
+    /* 🌟 2. 메인 배너 슬라이드 영역 (화살표 추가) */
+    .hero-slider-wrap {
       position: relative;
+      width: 100%;
+      height: 500px;
       overflow: hidden;
+      background-color: var(--dark-olive);
+    }
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      color: #fff;
     }
-    .hero-banner img {
+    .hero-slide.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .hero-slide img {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.4; /* 어둡게 깔아서 글씨가 잘 보이게 */
+      opacity: 0.5; /* 글씨 가독성을 위해 어둡게 */
       z-index: 1;
     }
     .hero-content {
       position: relative;
-      z-index: 2;
+      z-index: 3;
+      color: #fff;
+      padding: 0 20px;
     }
     .hero-content h1 {
       color: #fff;
-      font-size: 3rem;
+      font-size: 3.5rem;
       margin-bottom: 10px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    
+    /* 화살표 버튼 디자인 */
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.3);
+      color: #fff;
+      border: none;
+      font-size: 2rem;
+      padding: 15px 20px;
+      cursor: pointer;
+      z-index: 10;
+      transition: background 0.3s;
+    }
+    .slider-arrow:hover {
+      background: var(--dark-olive);
+    }
+    .arrow-left { left: 0; }
+    .arrow-right { right: 0; }
+
+    /* 하단 버튼 네비게이션 (점 표시) */
+    .slider-dots {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      z-index: 10;
+    }
+    .dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background-color: rgba(255,255,255,0.5);
+      border-radius: 50%;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .dot.active {
+      background-color: #fff;
+      transform: scale(1.3);
     }
 
-    /* 검색 영역 (CU 메인 검색창 스타일) */
+    /* 3. 검색 영역 */
     .search-section {
       background-color: #fff;
       padding: 40px 20px;
@@ -122,8 +180,7 @@
       max-width: 700px;
       margin: 0 auto;
       border: 3px solid var(--dark-olive);
-      border-radius: 8px; /* 각진 형태로 신뢰감 부여 */
-      overflow: hidden;
+      border-radius: 8px;
     }
     .search-box input {
       flex: 1;
@@ -146,7 +203,7 @@
       background-color: var(--light-olive);
     }
 
-    /* 컨텐츠 공통 레이아웃 */
+    /* 4. 컨텐츠 공통 & 메뉴 그리드 */
     .section-container {
       max-width: 1200px;
       margin: 80px auto;
@@ -165,7 +222,6 @@
       font-size: 1.1rem;
     }
 
-    /* CU 스타일 기업형 탭 메뉴 */
     .tab-menu {
       display: flex;
       justify-content: center;
@@ -178,7 +234,7 @@
       color: var(--text-sub);
       font-weight: 500;
       cursor: pointer;
-      margin: 0 -1px; /* 테두리 겹치기 */
+      margin: 0 -1px;
     }
     .tab-item.active {
       background-color: var(--dark-olive);
@@ -187,7 +243,6 @@
       z-index: 1;
     }
 
-    /* 3. 카드형 그리드 레이아웃 (메뉴) */
     .grid-wrap {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -206,7 +261,6 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.08);
     }
     
-    /* 카드 내 크로스페이드 이미지 */
     .card-img-box {
       width: 100%;
       height: 250px;
@@ -245,14 +299,13 @@
       font-size: 1.2rem;
       font-weight: 700;
       margin-bottom: 10px;
-      color: var(--text-main);
     }
     .card-desc {
       font-size: 0.9rem;
       color: var(--text-sub);
     }
 
-    /* 4. 공간 안내 (와이드 레이아웃) */
+    /* 🌟 5. 공간 안내 (VR 창 강제 고정) */
     .space-section {
       background-color: #fff;
       padding: 80px 0;
@@ -261,7 +314,8 @@
     .vr-box {
       max-width: 1000px;
       margin: 0 auto;
-      height: 450px;
+      /* 박스가 찌그러지지 않도록 최소 높이를 강제합니다 */
+      min-height: 450px; 
       border: 5px solid var(--border-color);
       border-radius: 12px;
       overflow: hidden;
@@ -269,7 +323,7 @@
     }
     #panorama {
       width: 100%;
-      height: 100%;
+      height: 450px; /* VR 자체의 높이도 명시적으로 지정 */
     }
     .btn-wrap {
       text-align: center;
@@ -290,7 +344,7 @@
       background-color: var(--point-color);
     }
 
-    /* 5. 우측 플로팅 퀵 메뉴 (CU 스타일) */
+    /* 6. 우측 플로팅 퀵 메뉴 */
     .quick-menu {
       position: fixed;
       right: 30px;
@@ -325,11 +379,7 @@
       font-weight: bold;
       margin-top: 3px;
     }
-    .quick-btn i {
-      font-size: 1.2rem;
-    }
 
-    /* 푸터 */
     footer {
       background-color: var(--dark-olive);
       color: #fff;
@@ -339,8 +389,9 @@
 
     @media (max-width: 768px) {
       .header-gnb { padding: 0 20px; }
-      .gnb-menu { display: none; } /* 모바일에서는 메뉴 숨김 */
+      .gnb-menu { display: none; }
       .quick-menu { right: 15px; bottom: 30px; }
+      .hero-content h1 { font-size: 2.5rem; }
     }
   </style>
 </head>
@@ -355,11 +406,39 @@
     </ul>
   </header>
 
-  <div class="hero-banner">
-    <img src="image.jpg" alt="카페 전경">
-    <div class="hero-content">
-      <h1>천년의 기다림</h1>
-      <p>당신의 피부를 위한 고즈넉한 휴식, 1000 Year Cherry Blossom Dream</p>
+  <div class="hero-slider-wrap">
+    
+    <div class="hero-slide active">
+      <img src="image.jpg" alt="카페 전경">
+      <div class="hero-content">
+        <h1>천년의 기다림</h1>
+        <p>당신의 피부를 위한 고즈넉한 휴식</p>
+      </div>
+    </div>
+    
+    <div class="hero-slide">
+      <img src="image6.jpg" alt="비밀의 숲">
+      <div class="hero-content">
+        <h1>깊은 숲속의 쉼표</h1>
+        <p>바람 소리만 머무는 프라이빗 룸</p>
+      </div>
+    </div>
+    
+    <div class="hero-slide">
+      <img src="image5.jpg" alt="오래된 서랍">
+      <div class="hero-content">
+        <h1>기억의 보관소</h1>
+        <p>오랜 시간이 머무는 앤틱 갤러리</p>
+      </div>
+    </div>
+
+    <button class="slider-arrow arrow-left" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="slider-arrow arrow-right" onclick="moveSlide(1)">&#10095;</button>
+
+    <div class="slider-dots">
+      <span class="dot active" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
     </div>
   </div>
 
@@ -383,7 +462,6 @@
     </div>
 
     <div class="grid-wrap">
-      
       <div class="card">
         <div class="card-img-box" onclick="toggleFade(this)">
           <img src="image1.jpg" class="img-front" alt="벚꽃 라떼 앞">
@@ -403,4 +481,104 @@
         </div>
         <div class="card-info">
           <span class="card-tag" style="background-color: var(--dark-olive);">BEST</span>
-          <div class="card-title">수제 구움과자
+          <div class="card-title">수제 구움과자</div>
+          <div class="card-desc">매일 아침 매장에서 직접 굽는 디저트 (사진 클릭)</div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-img-box">
+          <img src="image5.jpg" alt="핸드드립" style="filter: sepia(20%);">
+        </div>
+        <div class="card-info">
+          <span class="card-tag" style="background-color: var(--text-sub);">SEASON</span>
+          <div class="card-title">한옥 블렌드 커피</div>
+          <div class="card-desc">천년의 기다림을 담아 내린 깊은 풍미</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="space-section" class="space-section">
+    <div class="section-container" style="margin-top: 0; margin-bottom: 0;">
+      <div class="section-header">
+        <h2>SPACE & VR</h2>
+        <p>시간이 멈춘 듯한 툇마루와 서까래 아래의 여유를 360도 가상현실로 체험하세요.</p>
+      </div>
+
+      <div class="vr-box">
+        <div id="panorama"></div>
+      </div>
+
+      <div class="btn-wrap">
+        <a href="forest.html" class="btn-solid">비밀의 방 (숲속) 예약하기</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-menu">
+    <a href="#menu-section" class="quick-btn">
+      <i>📋</i>
+      <span>MENU</span>
+    </a>
+    <a href="forest.html" class="quick-btn">
+      <i>🌲</i>
+      <span>ROOM</span>
+    </a>
+    <a href="https://instagram.com/mehwa_uk" target="_blank" class="quick-btn">
+      <i>📷</i>
+      <span>SNS</span>
+    </a>
+  </div>
+
+  <footer>
+    <p>경상북도 경주시 황리단길 벚꽃길 104-1 | Instagram @mehwa_uk</p>
+    <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.7;">© 1000 Year Cherry Blossom Dream. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // 🌟 1. 메인 배너 슬라이드 (화살표 넘기기) 기능
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    // 화살표를 누를 때 실행되는 함수
+    function moveSlide(n) {
+      showSlides(slideIndex += n);
+    }
+
+    // 하단 점(dot)을 누를 때 실행되는 함수
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    // 슬라이드 화면을 바꿔주는 핵심 로직
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("hero-slide");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}    
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("active");  
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].classList.remove("active");
+      }
+      slides[slideIndex-1].classList.add("active");  
+      dots[slideIndex-1].classList.add("active");
+    }
+
+    // 2. 이미지 크로스페이드 (클릭 시 사진 변경) 기능
+    function toggleFade(element) {
+      element.classList.toggle('active');
+    }
+
+    // 3. VR 파노라마
+    pannellum.viewer('panorama', {
+      "type": "equirectangular",
+      "panorama": "vr.jpg?v=2",
+      "autoLoad": true
+    });
+  </script>
+</body>
+</html>
