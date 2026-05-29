@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>당신의 피부를 위한, 천년의 기다림</title>
+  <title>천년의 기다림, 벚꽃 카페</title>
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
@@ -15,9 +15,11 @@
     :root {
       --bg-cream: #f9f7f1;
       --dark-olive: #3c4a38;
-      --light-green: #d2dfb9;
+      --light-olive: #5b6e56;
+      --point-color: #d6a2a8; /* 벚꽃 핑크 */
       --text-main: #222;
       --text-sub: #666;
+      --border-color: #e0dcd0;
     }
 
     body {
@@ -27,6 +29,7 @@
       margin: 0;
       padding: 0;
       overflow-x: hidden;
+      padding-top: 70px; /* 고정 헤더 높이만큼 여백 */
     }
 
     h1, h2, h3 {
@@ -34,339 +37,370 @@
       color: var(--dark-olive);
     }
 
-    .hero-section {
-      background-color: #fff;
-      border-radius: 0 0 50% 50% / 0 0 100px 100px;
-      padding: 60px 20px 100px;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      margin-bottom: 80px;
-    }
-    
-    .hero-title {
-      font-size: 2.5rem;
-      font-weight: 800;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-    }
-    .hero-subtitle {
-      font-size: 1rem;
-      color: var(--text-sub);
-      margin-bottom: 40px;
-    }
-
-    .search-box {
-      background: #fff;
-      border: 2px solid var(--dark-olive);
-      border-radius: 40px;
-      display: flex;
-      max-width: 500px;
-      margin: 0 auto 30px;
-      padding: 10px 25px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
-    .search-box input {
-      border: none;
-      outline: none;
-      background: transparent;
-      width: 100%;
-      font-size: 1rem;
-      font-family: inherit;
-    }
-    .search-box button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: var(--dark-olive);
-    }
-
-    .menu-section {
-      max-width: 1000px;
-      margin: 0 auto 100px;
-      text-align: center;
-      padding: 0 20px;
-    }
-    .section-label {
-      display: inline-block;
-      background-color: var(--light-green);
-      color: var(--dark-olive);
-      padding: 5px 15px;
-      font-weight: 700;
-      border-radius: 20px;
-      margin-bottom: 20px;
-    }
-    
-    .filter-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      list-style: none;
-      padding: 0;
-      margin-bottom: 50px;
-    }
-    .filter-tabs li {
-      font-weight: 500;
-      color: var(--text-sub);
-      cursor: pointer;
-      position: relative;
-    }
-    .filter-tabs li.active {
-      color: var(--dark-olive);
-      font-weight: 700;
-    }
-    .filter-tabs li.active::after {
-      content: "";
-      position: absolute;
-      bottom: -5px;
+    /* 1. 상단 고정 네비게이션 (GNB) - CU 스타일 */
+    .header-gnb {
+      position: fixed;
+      top: 0;
       left: 0;
       width: 100%;
-      height: 2px;
-      background-color: var(--dark-olive);
-    }
-
-    .menu-gallery {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      gap: 50px;
-    }
-    .menu-item {
-      text-align: center;
-    }
-
-    /* 🌟 자연스러운 이미지 전환(크로스페이드)을 위한 스타일 조절 */
-    .menu-img-wrapper {
-      width: 200px;
-      height: 280px;
-      position: relative; /* 이미지 겹치기용 */
-      margin-bottom: 15px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-      border: 5px solid #fff;
-      cursor: pointer;
+      height: 70px;
       background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 50px;
+      z-index: 1000;
+      box-sizing: border-box;
     }
-    
-    /* 아치형/타원형 프레임 유지 */
-    .menu-img-wrapper.type-arch {
-      border-radius: 100px 100px 0 0;
+    .header-logo {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--dark-olive);
+      text-decoration: none;
     }
-    .menu-img-wrapper.type-circle {
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
+    .gnb-menu {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .gnb-menu li a {
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 500;
+      font-size: 1.05rem;
+      transition: color 0.3s;
+    }
+    .gnb-menu li a:hover {
+      color: var(--point-color);
     }
 
-    .menu-img-wrapper img {
+    /* 2. 메인 배너 영역 */
+    .hero-banner {
+      width: 100%;
+      height: 450px;
+      background-color: var(--dark-olive);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+    }
+    .hero-banner img {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* 고급스러운 가속도 효과 */
+      opacity: 0.4; /* 어둡게 깔아서 글씨가 잘 보이게 */
+      z-index: 1;
     }
-
-    /* 처음에 뒤에 숨겨둘 이미지 설정 */
-    .img-back {
-      opacity: 0;
-    }
-
-    /* 클릭되었을 때(active 클래스가 붙을 때) 투명도 교차 교환 */
-    .menu-img-wrapper.active .img-front {
-      opacity: 0;
-    }
-    .menu-img-wrapper.active .img-back {
-      opacity: 1;
-    }
-
-    .about-section {
-      max-width: 1000px;
-      margin: 0 auto 100px;
-      padding: 0 20px;
-      display: flex;
-      align-items: center;
-      gap: 50px;
-    }
-    .about-text {
-      flex: 1;
-    }
-    .about-text h3 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-    }
-    .vr-container {
-      flex: 1;
-      border-radius: 150px 150px 0 0;
-      overflow: hidden;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-      border: 8px solid #fff;
-      height: 450px;
+    .hero-content {
       position: relative;
+      z-index: 2;
+    }
+    .hero-content h1 {
+      color: #fff;
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    /* 검색 영역 (CU 메인 검색창 스타일) */
+    .search-section {
+      background-color: #fff;
+      padding: 40px 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .search-box {
+      display: flex;
+      max-width: 700px;
+      margin: 0 auto;
+      border: 3px solid var(--dark-olive);
+      border-radius: 8px; /* 각진 형태로 신뢰감 부여 */
+      overflow: hidden;
+    }
+    .search-box input {
+      flex: 1;
+      padding: 15px 20px;
+      border: none;
+      font-size: 1.1rem;
+      outline: none;
+    }
+    .search-box button {
+      background-color: var(--dark-olive);
+      color: #fff;
+      border: none;
+      padding: 0 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .search-box button:hover {
+      background-color: var(--light-olive);
+    }
+
+    /* 컨텐츠 공통 레이아웃 */
+    .section-container {
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .section-header h2 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+    .section-header p {
+      color: var(--text-sub);
+      font-size: 1.1rem;
+    }
+
+    /* CU 스타일 기업형 탭 메뉴 */
+    .tab-menu {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .tab-item {
+      padding: 12px 40px;
+      background-color: #fff;
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      font-weight: 500;
+      cursor: pointer;
+      margin: 0 -1px; /* 테두리 겹치기 */
+    }
+    .tab-item.active {
+      background-color: var(--dark-olive);
+      color: #fff;
+      border-color: var(--dark-olive);
+      z-index: 1;
+    }
+
+    /* 3. 카드형 그리드 레이아웃 (메뉴) */
+    .grid-wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    .card {
+      background-color: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+    
+    /* 카드 내 크로스페이드 이미지 */
+    .card-img-box {
+      width: 100%;
+      height: 250px;
+      position: relative;
+      cursor: pointer;
+      background-color: #f1f1f1;
+    }
+    .card-img-box img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.6s ease;
+    }
+    .img-back { opacity: 0; }
+    .card-img-box.active .img-front { opacity: 0; }
+    .card-img-box.active .img-back { opacity: 1; }
+
+    .card-info {
+      padding: 25px;
+      text-align: center;
+    }
+    .card-tag {
+      display: inline-block;
+      background-color: var(--point-color);
+      color: #fff;
+      font-size: 0.8rem;
+      padding: 3px 10px;
+      border-radius: 15px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text-main);
+    }
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+    }
+
+    /* 4. 공간 안내 (와이드 레이아웃) */
+    .space-section {
+      background-color: #fff;
+      padding: 80px 0;
+      border-top: 1px solid var(--border-color);
+    }
+    .vr-box {
+      max-width: 1000px;
+      margin: 0 auto;
+      height: 450px;
+      border: 5px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
     #panorama {
       width: 100%;
       height: 100%;
     }
-
-    .view-more-btn {
+    .btn-wrap {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .btn-solid {
       display: inline-block;
-      padding: 10px 30px;
-      border: 1px solid var(--dark-olive);
-      border-radius: 30px;
-      color: var(--dark-olive);
+      background-color: var(--dark-olive);
+      color: #fff;
+      padding: 15px 40px;
+      font-size: 1.1rem;
+      font-weight: bold;
       text-decoration: none;
-      font-weight: 500;
-      margin-top: 20px;
+      border-radius: 30px;
+      transition: 0.3s;
+    }
+    .btn-solid:hover {
+      background-color: var(--point-color);
+    }
+
+    /* 5. 우측 플로팅 퀵 메뉴 (CU 스타일) */
+    .quick-menu {
+      position: fixed;
+      right: 30px;
+      bottom: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1000;
+    }
+    .quick-btn {
+      width: 60px;
+      height: 60px;
+      background-color: #fff;
+      border: 2px solid var(--dark-olive);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      color: var(--dark-olive);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       transition: all 0.3s;
     }
-    .view-more-btn:hover {
+    .quick-btn:hover {
       background-color: var(--dark-olive);
       color: #fff;
+      transform: translateY(-5px);
+    }
+    .quick-btn span {
+      font-size: 0.7rem;
+      font-weight: bold;
+      margin-top: 3px;
+    }
+    .quick-btn i {
+      font-size: 1.2rem;
     }
 
-    .dark-section {
+    /* 푸터 */
+    footer {
       background-color: var(--dark-olive);
       color: #fff;
-      padding: 80px 20px;
       text-align: center;
-    }
-    .dark-section h2 {
-      color: #fff;
-    }
-    .dark-section .section-label {
-      background-color: transparent;
-      border: 1px solid #fff;
-      color: #fff;
-    }
-    
-    .archive-grid {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      max-width: 1000px;
-      margin: 40px auto;
-    }
-    .archive-item {
-      width: 200px;
-      height: 200px;
-      overflow: hidden;
-      border-radius: 10px;
-    }
-    .archive-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: sepia(15%);
-      transition: transform 0.3s;
-    }
-    .archive-item:hover img {
-      transform: scale(1.1);
-    }
-    .dark-section .view-more-btn {
-      border-color: #fff;
-      color: #fff;
-    }
-    .dark-section .view-more-btn:hover {
-      background-color: #fff;
-      color: var(--dark-olive);
+      padding: 40px 20px;
     }
 
     @media (max-width: 768px) {
-      .menu-gallery { flex-wrap: wrap; justify-content: center; gap: 30px; }
-      .about-section { flex-direction: column; }
-      .vr-container { width: 100%; }
-      .archive-grid { flex-wrap: wrap; }
+      .header-gnb { padding: 0 20px; }
+      .gnb-menu { display: none; } /* 모바일에서는 메뉴 숨김 */
+      .quick-menu { right: 15px; bottom: 30px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="hero-section">
-    <h1 class="hero-title">천년의 기다림, 벚꽃 카페</h1>
-    <p class="hero-subtitle">당신의 피부를 위한 고즈넉한 휴식, 1000 Year Cherry Blossom Dream</p>
-    
-    <form action="https://www.google.com/search" method="GET" target="_blank" class="search-box">
-      <input type="text" name="q" placeholder="경주 황리단길 한옥 카페 검색" required>
-      <button type="submit">🔍</button>
-    </form>
-    
-    <div style="max-width: 800px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
-      <img src="image.jpg" alt="카페 전경" style="width: 100%; display: block;">
+  <header class="header-gnb">
+    <a href="#" class="header-logo">벚꽃 카페</a>
+    <ul class="gnb-menu">
+      <li><a href="#menu-section">메뉴 소개</a></li>
+      <li><a href="#space-section">공간 안내(VR)</a></li>
+      <li><a href="forest.html">비밀의 방</a></li>
+    </ul>
+  </header>
+
+  <div class="hero-banner">
+    <img src="image.jpg" alt="카페 전경">
+    <div class="hero-content">
+      <h1>천년의 기다림</h1>
+      <p>당신의 피부를 위한 고즈넉한 휴식, 1000 Year Cherry Blossom Dream</p>
     </div>
   </div>
 
-  <div class="menu-section">
-    <div class="section-label">CHERRY BLOSSOM 메뉴</div>
-    <ul class="filter-tabs">
-      <li class="active">시그니처</li>
-      <li>커피</li>
-      <li>음료</li>
-      <li>디저트</li>
-    </ul>
+  <div class="search-section">
+    <form action="https://www.google.com/search" method="GET" target="_blank" class="search-box">
+      <input type="text" name="q" placeholder="경주 황리단길 한옥 카페 검색 (구글 연동)" required>
+      <button type="submit">검색</button>
+    </form>
+  </div>
 
-    <div class="menu-gallery">
-      <div class="menu-item">
-        <div class="menu-img-wrapper type-arch" onclick="toggleFade(this)">
+  <div id="menu-section" class="section-container">
+    <div class="section-header">
+      <h2>CHERRY BLOSSOM MENU</h2>
+      <p>정성을 담은 시그니처 메뉴를 만나보세요.</p>
+    </div>
+
+    <div class="tab-menu">
+      <div class="tab-item active">시그니처</div>
+      <div class="tab-item">커피/음료</div>
+      <div class="tab-item">수제 디저트</div>
+    </div>
+
+    <div class="grid-wrap">
+      
+      <div class="card">
+        <div class="card-img-box" onclick="toggleFade(this)">
           <img src="image1.jpg" class="img-front" alt="벚꽃 라떼 앞">
           <img src="image3.jpg" class="img-back" alt="벚꽃 라떼 뒤">
         </div>
-        <p style="font-weight: 700; margin-top: 10px;">[시그니처] 벚꽃 라떼</p>
-        <p style="font-size: 0.85rem; color: var(--text-sub); margin: 0;">(사진을 클릭해 보세요)</p>
+        <div class="card-info">
+          <span class="card-tag">NEW</span>
+          <div class="card-title">벚꽃 라떼</div>
+          <div class="card-desc">은은한 벚꽃 향과 부드러운 우유의 조화 (사진 클릭)</div>
+        </div>
       </div>
 
-      <div class="menu-item">
-        <div class="menu-img-wrapper type-circle" onclick="toggleFade(this)">
+      <div class="card">
+        <div class="card-img-box" onclick="toggleFade(this)">
           <img src="image2.png" class="img-front" alt="수제 디저트 앞">
           <img src="image4.jpg" class="img-back" alt="수제 디저트 뒤">
         </div>
-        <p style="font-weight: 700; margin-top: 10px;">수제 구움과자</p>
-        <p style="font-size: 0.85rem; color: var(--text-sub); margin: 0;">(사진을 클릭해 보세요)</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="about-section">
-    <div class="vr-container">
-      <div id="panorama"></div>
-    </div>
-    <div class="about-text">
-      <div class="section-label">ABOUT SPACE</div>
-      <h3>봄날의 쉼표,<br>공간을 미리 거닐다</h3>
-      <p style="color: var(--text-sub); line-height: 1.8; margin-bottom: 30px;">
-        복잡한 일상을 뒤로하고 한옥의 정취를 느껴보세요.<br>
-        창밖으로 흩날리는 벚꽃잎과 함께, 시간이 멈춘 듯한 툇마루와 서까래 아래의 여유를 360도 가상현실(VR)로 생생하게 둘러보실 수 있습니다.
-      </p>
-      <a href="forest.html" class="view-more-btn">비밀의 방 (숲속) 입장하기 →</a>
-    </div>
-  </div>
-
-  <div class="dark-section">
-    <div class="section-label" style="margin-bottom: 20px;">ARCHIVE & INSTAGRAM</div>
-    <h2>정성을 담은 기록</h2>
-    <p style="opacity: 0.8; margin-bottom: 40px;">꽃이 피고 지는 순간의 아름다움을 담아냅니다</p>
-
-    <div class="archive-grid">
-      <div class="archive-item"><img src="image3.jpg" alt="기록 1"></div>
-      <div class="archive-item"><img src="image4.jpg" alt="기록 2"></div>
-      <div class="archive-item"><img src="image5.jpg" alt="기록 3"></div>
-    </div>
-
-    <a href="https://instagram.com/mehwa_uk" target="_blank" class="view-more-btn">INSTAGRAM VIEW MORE →</a>
-  </div>
-
-  <script>
-    // 🌟 JavaScript 스위치 함수 추가
-    function toggleFade(element) {
-      element.classList.toggle('active');
-    }
-
-    pannellum.viewer('panorama', {
-      "type": "equirectangular",
-      "panorama": "vr.jpg?v=2",
-      "autoLoad": true
-    });
-  </script>
-</body>
-</html>
+        <div class="card-info">
+          <span class="card-tag" style="background-color: var(--dark-olive);">BEST</span>
+          <div class="card-title">수제 구움과자
